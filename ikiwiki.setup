@@ -56,7 +56,7 @@ banned_users:
   - Smith
   - quentin
   - quentinfudge
-  - Sum
+  - https://www.google.com/accounts/o8/id?id=AItOawkJHb27RVmw93kqyzfoxZWNKjqR8MEVt3A
   - ip(123.26.115.218)
 # where the source of the wiki is located
 srcdir: /home/b-ikiwiki/source/doc
