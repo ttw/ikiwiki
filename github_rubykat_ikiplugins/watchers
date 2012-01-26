@@ -1,0 +1,22 @@
+[ GithubUser
+    { githubUserAvatarUrl = "https://secure.gravatar.com/avatar/06b378889656c1fcbde770626d52112d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
+    , githubUserLogin = "rubykat"
+    , githubUserUrl = "https://api.github.com/users/rubykat"
+    , githubUserId = 147482
+    , githubUserGravatarId = "06b378889656c1fcbde770626d52112d"
+    }
+, GithubUser
+    { githubUserAvatarUrl = "https://secure.gravatar.com/avatar/955d0deeda75af611ab94819bfc1143c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
+    , githubUserLogin = "simonlnu"
+    , githubUserUrl = "https://api.github.com/users/simonlnu"
+    , githubUserId = 68096
+    , githubUserGravatarId = "955d0deeda75af611ab94819bfc1143c"
+    }
+, GithubUser
+    { githubUserAvatarUrl = "https://secure.gravatar.com/avatar/e6ba3ae368b91e40b25f0d6caa0d1860?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
+    , githubUserLogin = "ertug"
+    , githubUserUrl = "https://api.github.com/users/ertug"
+    , githubUserId = 107676
+    , githubUserGravatarId = "e6ba3ae368b91e40b25f0d6caa0d1860"
+    }
+]
