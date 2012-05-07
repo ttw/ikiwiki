@@ -14,6 +14,7 @@ adminemail: joey@ikiwiki.info
 # users who are wiki admins
 adminuser:
   - http://joey.kitenet.net/
+  - http://joeyh.name/
 # users who are banned from the wiki
 banned_users:
   - https://www.google.com/accounts/o8/id?id=AItOawkaL6e6GtpyD7gJyqHphon_5ES1ACDLJgg
