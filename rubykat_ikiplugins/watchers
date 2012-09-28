@@ -1,0 +1,36 @@
+[ GithubUser
+    { githubOwnerAvatarUrl = "https://secure.gravatar.com/avatar/06b378889656c1fcbde770626d52112d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+    , githubOwnerLogin = "rubykat"
+    , githubOwnerUrl = "https://api.github.com/users/rubykat"
+    , githubOwnerId = 147482
+    , githubOwnerGravatarId = "06b378889656c1fcbde770626d52112d"
+    }
+, GithubUser
+    { githubOwnerAvatarUrl = "https://secure.gravatar.com/avatar/791e34361d06c3d11f60a69a8bd4089d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+    , githubOwnerLogin = "gjskha"
+    , githubOwnerUrl = "https://api.github.com/users/gjskha"
+    , githubOwnerId = 874546
+    , githubOwnerGravatarId = "791e34361d06c3d11f60a69a8bd4089d"
+    }
+, GithubUser
+    { githubOwnerAvatarUrl = "https://secure.gravatar.com/avatar/955d0deeda75af611ab94819bfc1143c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+    , githubOwnerLogin = "simonlnu"
+    , githubOwnerUrl = "https://api.github.com/users/simonlnu"
+    , githubOwnerId = 68096
+    , githubOwnerGravatarId = "955d0deeda75af611ab94819bfc1143c"
+    }
+, GithubUser
+    { githubOwnerAvatarUrl = "https://secure.gravatar.com/avatar/d7b7ba3c37793ca4e420d75c66ae8f1a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+    , githubOwnerLogin = "zmughal"
+    , githubOwnerUrl = "https://api.github.com/users/zmughal"
+    , githubOwnerId = 94489
+    , githubOwnerGravatarId = "d7b7ba3c37793ca4e420d75c66ae8f1a"
+    }
+, GithubUser
+    { githubOwnerAvatarUrl = "https://secure.gravatar.com/avatar/e6ba3ae368b91e40b25f0d6caa0d1860?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+    , githubOwnerLogin = "ertug"
+    , githubOwnerUrl = "https://api.github.com/users/ertug"
+    , githubOwnerId = 107676
+    , githubOwnerGravatarId = "e6ba3ae368b91e40b25f0d6caa0d1860"
+    }
+]

@@ -1,8 +1,0 @@
-[ GithubUser
-    { githubUserAvatarUrl = "https://secure.gravatar.com/avatar/28b1f4e9eeee97eea0147e1a25ce455a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
-    , githubUserLogin = "blipvert"
-    , githubUserUrl = "https://api.github.com/users/blipvert"
-    , githubUserId = 107617
-    , githubUserGravatarId = "28b1f4e9eeee97eea0147e1a25ce455a"
-    }
-]

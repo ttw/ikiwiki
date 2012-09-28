@@ -1,0 +1,8 @@
+[ GithubUser
+    { githubOwnerAvatarUrl = "https://secure.gravatar.com/avatar/7fe6255dbe4806a588cc06a5ba4a5d82?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+    , githubOwnerLogin = "chrismgray"
+    , githubOwnerUrl = "https://api.github.com/users/chrismgray"
+    , githubOwnerId = 75220
+    , githubOwnerGravatarId = "7fe6255dbe4806a588cc06a5ba4a5d82"
+    }
+]

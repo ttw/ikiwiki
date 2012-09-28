@@ -1,8 +1,0 @@
-[ GithubUser
-    { githubUserAvatarUrl = "https://secure.gravatar.com/avatar/81d73c69371283ee4ec6fb442953e536?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
-    , githubUserLogin = "sathlan"
-    , githubUserUrl = "https://api.github.com/users/sathlan"
-    , githubUserId = 328319
-    , githubUserGravatarId = "81d73c69371283ee4ec6fb442953e536"
-    }
-]
