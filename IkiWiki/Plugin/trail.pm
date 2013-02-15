@@ -447,17 +447,26 @@ sub pagetemplate (@) {
 				$nexttitle = title_of($next);
 			}
 
-			push @trails, {
+			my %trail_info = (
 				prevpage => $prev,
 				prevtitle => $prevtitle,
 				prevurl => $prevurl,
 				nextpage => $next,
 				nexttitle => $nexttitle,
 				nexturl => $nexturl,
-				trailpage => $trail,
-				trailtitle => title_of($trail),
-				trailurl => urlto($trail, $page),
+			);
+
+			# the trail index is added as 'up' page, but only if it's
+			# not a page in the trail itself. This allows the definition of
+			# up-less trails by using e.g. the trailitems directive in one of the
+			# pages of the trail
+			unless ($trail ~~ @$members) {
+				$trail_info{trailpage} = $trail;
+				$trail_info{trailtitle} = title_of($trail);
+				$trail_info{trailurl} = urlto($trail, $page);
 			};
+
+			push @trails, \%trail_info;
 		}
 
 		$template->param(trailloop => \@trails);
