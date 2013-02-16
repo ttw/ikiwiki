@@ -7,6 +7,9 @@ on that page.
 
     \[[!trailitems pagenames="a b c"]]
 
+Note that if the directive includes the current page in the trail, a trail
+will be produced that has forward and back links, but no link "up".
+
 Options are similar to [[!iki ikiwiki/directive/inline desc=inline]]:
 
 * `pages`: adds pages that match a [[ikiwiki/PageSpec]] to the trail
