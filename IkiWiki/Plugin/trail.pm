@@ -228,6 +228,7 @@ my %trail_to_members;
 #	trail2 => ["member0", undef],
 # }
 my %member_to_trails;
+my %up_in_trail;
 
 # member => 1
 my %rebuild_trail_members;
@@ -291,6 +292,7 @@ sub prerender {
 		next unless exists $pagestate{$trail}{trail}{contents};
 
 		my $members = [];
+		my $up_in_trail = 0;
 		my @contents = @{$pagestate{$trail}{trail}{contents}};
 
 		foreach my $c (@contents) {
@@ -329,11 +331,14 @@ sub prerender {
 			@$members = reverse @$members;
 		}
 
+
+
 		# uniquify
 		my %seen;
 		my @tmp;
 		foreach my $member (@$members) {
 			push @tmp, $member unless $seen{$member};
+			$up_in_trail = 1 if $member eq $trail;
 			$seen{$member} = 1;
 		}
 		$members = [@tmp];
@@ -353,6 +358,7 @@ sub prerender {
 		}
 
 		$trail_to_members{$trail} = $members;
+		$up_in_trail{$trail} = $up_in_trail;
 	}
 
 	foreach my $member (keys %pagestate) {
@@ -460,7 +466,7 @@ sub pagetemplate (@) {
 			# not a page in the trail itself. This allows the definition of
 			# up-less trails by using e.g. the trailitems directive in one of the
 			# pages of the trail
-			unless ($trail ~~ @$members) {
+			unless ($up_in_trail{$trail}) {
 				$trail_info{trailpage} = $trail;
 				$trail_info{trailtitle} = title_of($trail);
 				$trail_info{trailurl} = urlto($trail, $page);
