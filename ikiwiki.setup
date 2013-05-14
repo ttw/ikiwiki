@@ -17,6 +17,7 @@ adminuser:
   - http://joeyh.name/
 # users who are banned from the wiki
 banned_users:
+  - https://www.google.com/accounts/o8/id?id=AItOawnAq_X98v6qKJFwl-MyLb440vC8laTdiMg
   - https://www.google.com/accounts/o8/id?id=AItOawm_nWF_tPw8mLI7rMxfykA_d3FehQNvWpI
   - https://www.google.com/accounts/o8/id?id=AItOawkTn3HixU2KJIvvLXLqwYUzlDGDtYf43GE
   - https://www.google.com/accounts/o8/id?id=AItOawkDOCT-KTCLpieip-2W0N51gZwF7nGLaS0
