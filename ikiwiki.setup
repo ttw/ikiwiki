@@ -17,6 +17,7 @@ adminuser:
   - http://joeyh.name/
 # users who are banned from the wiki
 banned_users:
+  - http://tonyguards.myopenid.com/
   - http://butoijoh.myopenid.com/
   - https://www.google.com/accounts/o8/id?id=AItOawnAq_X98v6qKJFwl-MyLb440vC8laTdiMg
   - https://www.google.com/accounts/o8/id?id=AItOawm_nWF_tPw8mLI7rMxfykA_d3FehQNvWpI
@@ -288,7 +289,7 @@ blogspam_pagespec: '*'
 
 # lockedit plugin
 # PageSpec controlling which pages are locked
-locked_pages: tipjar
+locked_pages: tipjar or tips/DreamHost
 
 # moderatedcomments plugin
 # PageSpec matching users or comment locations to moderate
