@@ -74,6 +74,8 @@ banned_users:
   - https://www.google.com/accounts/o8/id?id=AItOawkljravtnjpauReS81ng5zVurZx_thpse8
   - ip(123.26.124.157)
   - KataMutiara
+  - tekschen
+  - ip(80.187.102.194)
 # where the source of the wiki is located
 srcdir: /home/b-ikiwiki/source/doc
 # where to build the wiki
