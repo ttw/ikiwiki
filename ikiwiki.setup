@@ -76,6 +76,7 @@ banned_users:
   - KataMutiara
   - tekschen
   - ip(80.187.102.194)
+  - webschen1
 # where the source of the wiki is located
 srcdir: /home/b-ikiwiki/source/doc
 # where to build the wiki
