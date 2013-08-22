@@ -78,6 +78,7 @@ banned_users:
   - ip(80.187.102.194)
   - webschen1
   - ip(79.228.*.*)
+  - schmonz
 # where the source of the wiki is located
 srcdir: /home/b-ikiwiki/source/doc
 # where to build the wiki
