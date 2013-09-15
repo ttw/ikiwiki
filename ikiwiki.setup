@@ -75,11 +75,12 @@ banned_users:
   - ip(123.26.124.157)
   - KataMutiara
   - tekschen
-  - ip(80.187.102.194)
   - webschen1
   - ip(79.228.*.*)
   - soman81
   - ip(31.17.11.19)
+  - spain1001
+  - ip(80.187.*.*)
 # where the source of the wiki is located
 srcdir: /home/b-ikiwiki/source/doc
 # where to build the wiki
