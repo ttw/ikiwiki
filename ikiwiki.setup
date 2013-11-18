@@ -13,74 +13,74 @@ wikiname: ikiwiki
 adminemail: joey@ikiwiki.info
 # users who are wiki admins
 adminuser:
-  - http://joey.kitenet.net/
-  - http://joeyh.name/
+- http://joey.kitenet.net/
+- http://joeyh.name/
 # users who are banned from the wiki
 banned_users:
-  - http://tonyguards.myopenid.com/
-  - http://butoijoh.myopenid.com/
-  - ip(62.219.8.238)
-  - ip(184.105.146.11)
-  - ip(184.105.146.6)
-  - ip(149.135.147.88)
-  - https://www.google.com/accounts/o8/id?id=AItOawnAq_X98v6qKJFwl-MyLb440vC8laTdiMg
-  - https://www.google.com/accounts/o8/id?id=AItOawm_nWF_tPw8mLI7rMxfykA_d3FehQNvWpI
-  - https://www.google.com/accounts/o8/id?id=AItOawkTn3HixU2KJIvvLXLqwYUzlDGDtYf43GE
-  - https://www.google.com/accounts/o8/id?id=AItOawkDOCT-KTCLpieip-2W0N51gZwF7nGLaS0
-  - https://www.google.com/accounts/o8/id?id=AItOawl8-V-Yp0F5ZWRmDb7j4ul1gsbMXjghDIU
-  - https://www.google.com/accounts/o8/id?id=AItOawkaL6e6GtpyD7gJyqHphon_5ES1ACDLJgg
-  - https://www.google.com/accounts/o8/id?id=AItOawnv-w7GplWln2P55lnzc6Ds-ltzk6sNxDY
-  - https://me.yahoo.com/a/3hUnH9Qi24uk3RwCwHATJBWKVyqc#7d8b8
-  - ip(95.65.50.150)
-  - https://me.yahoo.com/a/2.Pjpm0G0Z6F9LiGW4cYO84pIrb.Lg--#137de
-  - https://www.google.com/accounts/o8/id?id=AItOawkuR0eo_HO1s1hs49h0Y_4Bzm08l9evMEc
-  - https://www.google.com/accounts/o8/id?id=AItOawlYXeKSEBoSCzES7o5VYiSratG5RfNucL0
-  - https://www.google.com/accounts/o8/id?id=AItOawl_wuvPHDhkuMVnEOP5jLrZyd3nnBs8YRw
-  - ip(115.43.30.149)
-  - ikiwikiweb
-  - webkatalog
-  - ip(117.201.35.183)
-  - adrianna
-  - ip(94.179.251.118)
-  - capitaine
-  - ip(74.63.117.196)
-  - ip(74.63.117.195)
-  - testerer
-  - ip(86.103.200.90)
-  - AlbertF
-  - ip(71.132.208.155)
-  - MariaJackson
-  - ip(208.75.10.42)
-  - HelenOliver
-  - ip(222.127.197.140)
-  - GraceTemplman46
-  - diannetyron
-  - ip(119.111.124.194)
-  - http://cmelbye.myopenid.com/
-  - autobahnned
-  - icerain321
-  - shoesorder
-  - AdamMeyars
-  - essaywriter
-  - blahgrad
-  - alicia.warner
-  - WikiJeanHawkins
-  - nicole.adams
-  - Smith
-  - quentin
-  - quentinfudge
-  - https://www.google.com/accounts/o8/id?id=AItOawkJHb27RVmw93kqyzfoxZWNKjqR8MEVt3A
-  - ip(123.26.115.218)
-  - https://www.google.com/accounts/o8/id?id=AItOawkljravtnjpauReS81ng5zVurZx_thpse8
-  - ip(123.26.124.157)
-  - KataMutiara
-  - tekschen
-  - webschen1
-  - ip(79.228.*.*)
-  - soman81
-  - ip(31.17.11.19)
-  - spain1001
-  - ip(80.187.*.*)
+- http://tonyguards.myopenid.com/
+- http://butoijoh.myopenid.com/
+- ip(62.219.8.238)
+- ip(184.105.146.11)
+- ip(184.105.146.6)
+- ip(149.135.147.88)
+- https://www.google.com/accounts/o8/id?id=AItOawnAq_X98v6qKJFwl-MyLb440vC8laTdiMg
+- https://www.google.com/accounts/o8/id?id=AItOawm_nWF_tPw8mLI7rMxfykA_d3FehQNvWpI
+- https://www.google.com/accounts/o8/id?id=AItOawkTn3HixU2KJIvvLXLqwYUzlDGDtYf43GE
+- https://www.google.com/accounts/o8/id?id=AItOawkDOCT-KTCLpieip-2W0N51gZwF7nGLaS0
+- https://www.google.com/accounts/o8/id?id=AItOawl8-V-Yp0F5ZWRmDb7j4ul1gsbMXjghDIU
+- https://www.google.com/accounts/o8/id?id=AItOawkaL6e6GtpyD7gJyqHphon_5ES1ACDLJgg
+- https://www.google.com/accounts/o8/id?id=AItOawnv-w7GplWln2P55lnzc6Ds-ltzk6sNxDY
+- https://me.yahoo.com/a/3hUnH9Qi24uk3RwCwHATJBWKVyqc#7d8b8
+- ip(95.65.50.150)
+- https://me.yahoo.com/a/2.Pjpm0G0Z6F9LiGW4cYO84pIrb.Lg--#137de
+- https://www.google.com/accounts/o8/id?id=AItOawkuR0eo_HO1s1hs49h0Y_4Bzm08l9evMEc
+- https://www.google.com/accounts/o8/id?id=AItOawlYXeKSEBoSCzES7o5VYiSratG5RfNucL0
+- https://www.google.com/accounts/o8/id?id=AItOawl_wuvPHDhkuMVnEOP5jLrZyd3nnBs8YRw
+- ip(115.43.30.149)
+- ikiwikiweb
+- webkatalog
+- ip(117.201.35.183)
+- adrianna
+- ip(94.179.251.118)
+- capitaine
+- ip(74.63.117.196)
+- ip(74.63.117.195)
+- testerer
+- ip(86.103.200.90)
+- AlbertF
+- ip(71.132.208.155)
+- MariaJackson
+- ip(208.75.10.42)
+- HelenOliver
+- ip(222.127.197.140)
+- GraceTemplman46
+- diannetyron
+- ip(119.111.124.194)
+- http://cmelbye.myopenid.com/
+- autobahnned
+- icerain321
+- shoesorder
+- AdamMeyars
+- essaywriter
+- blahgrad
+- alicia.warner
+- WikiJeanHawkins
+- nicole.adams
+- Smith
+- quentin
+- quentinfudge
+- https://www.google.com/accounts/o8/id?id=AItOawkJHb27RVmw93kqyzfoxZWNKjqR8MEVt3A
+- ip(123.26.115.218)
+- https://www.google.com/accounts/o8/id?id=AItOawkljravtnjpauReS81ng5zVurZx_thpse8
+- ip(123.26.124.157)
+- KataMutiara
+- tekschen
+- webschen1
+- ip(79.228.*.*)
+- soman81
+- ip(31.17.11.19)
+- spain1001
+- ip(80.187.*.*)
 # where the source of the wiki is located
 srcdir: /home/b-ikiwiki/source/doc
 # where to build the wiki
@@ -93,52 +93,58 @@ cgiurl: http://ikiwiki.info/ikiwiki.cgi
 cgi_wrapper: /var/www/b-ikiwiki/ikiwiki.cgi
 # mode for cgi_wrapper (can safely be made suid)
 cgi_wrappermode: 0755
+# number of seconds to delay CGI requests when overloaded
+cgi_overload_delay: ''
+# message to display when overloaded (may contain html)
+cgi_overload_message: ''
+# enable optimization of only refreshing committed changes?
+only_committed_changes: 0
 # rcs backend to use
 rcs: git
 # plugins to add to the default configuration
 add_plugins:
-  - sidebar
-  - goodstuff
-  - websetup
-  - table
-  - haiku
-  - html
-  - polygen
-  - fortune
-  - linkmap
-  - favicon
-  - poll
-  - postsparkline
-  - sparkline
-  - version
-  - testpagespec
-  - edittemplate
-  - recentchangesdiff
-  - 404
-  - ikiwikihosting
-  - branchable
-  - recentchangesdiff
-  - attachment
-  - remove
-  - rename
-  - edittemplate
-  - favicon
-  - format
-  - fortune
-  - highlight
-  - listdirectives
-  - poll
-  - progress
-  - relativedate
-  - search
-  - testpagespec
-  - version
-  - theme
-  - repolist
-  - highlight
-  - comments
-  - gitpush
-  - blogspam
+- sidebar
+- goodstuff
+- websetup
+- table
+- haiku
+- html
+- polygen
+- fortune
+- linkmap
+- favicon
+- poll
+- postsparkline
+- sparkline
+- version
+- testpagespec
+- edittemplate
+- recentchangesdiff
+- 404
+- ikiwikihosting
+- branchable
+- recentchangesdiff
+- attachment
+- remove
+- rename
+- edittemplate
+- favicon
+- format
+- fortune
+- highlight
+- listdirectives
+- poll
+- progress
+- relativedate
+- search
+- testpagespec
+- version
+- theme
+- repolist
+- highlight
+- comments
+- gitpush
+- blogspam
 # plugins to disable
 disable_plugins: []
 # additional directory to search for template files
@@ -177,8 +183,8 @@ userdir: users
 numbacklinks: 10
 # attempt to hardlink source files? (optimisation for large files)
 hardlink: 1
-# force ikiwiki to use a particular umask
-#umask: 022
+# force ikiwiki to use a particular umask (keywords public, group or private, or a number)
+#umask: public
 # group for wrappers to run in
 #wrappergroup: ikiwiki
 # extra library and plugin directory
@@ -189,13 +195,16 @@ ENV:
 # time zone name
 timezone: JEST+4
 # regexp of normally excluded files to include
-#include: '^\.htaccess$'
+#include: ^\.htaccess$
 # regexp of files that should be skipped
-#exclude: '^(*\.private|Makefile)$'
+#exclude: ^(*\.private|Makefile)$
 # specifies the characters that are allowed in source filenames
-wiki_file_chars: '-[:alnum:]+/.:_'
+wiki_file_chars: -[:alnum:]+/.:_
 # allow symlinks in the path leading to the srcdir (potentially insecure)
 allow_symlinks_before_srcdir: 0
+# cookie control
+cookiejar:
+  file: /home/b-ikiwiki/.ikiwiki/cookies
 
 ######################################################################
 # core plugins
@@ -222,11 +231,11 @@ git_wrappermode: 6755
 git_test_receive_wrapper: /home/b-ikiwiki/source.git/hooks/pre-receive
 # unix users whose commits should be checked by the pre-receive hook
 untrusted_committers:
-  - ikiwiki-anon
+- ikiwiki-anon
 # gitweb url to show file history ([[file]] substituted)
-historyurl: 'http://source.ikiwiki.branchable.com/?p=source.git;a=history;f=doc/[[file]];hb=HEAD'
+historyurl: http://source.ikiwiki.branchable.com/?p=source.git;a=history;f=doc/[[file]];hb=HEAD
 # gitweb url to show a diff ([[file]], [[sha1_to]], [[sha1_from]], [[sha1_commit]], and [[sha1_parent]] substituted)
-diffurl: 'http://source.ikiwiki.branchable.com/?p=source.git;a=blobdiff;f=doc/[[file]];h=[[sha1_to]];hp=[[sha1_from]];hb=[[sha1_commit]];hpb=[[sha1_parent]]'
+diffurl: http://source.ikiwiki.branchable.com/?p=source.git;a=blobdiff;f=doc/[[file]];h=[[sha1_to]];hp=[[sha1_from]];hb=[[sha1_commit]];hpb=[[sha1_parent]]
 # where to pull and push changes (set to empty string to disable)
 gitorigin_branch: origin
 # branch that the wiki is stored in
@@ -235,8 +244,8 @@ gitmaster_branch: master
 # gitpush plugin
 # git repository urls that changes are pushed to
 git_push_to:
-  - git@github.com:joeyh/ikiwiki.git
-  - joey@git.kitenet.net:/srv/git/ikiwiki.git
+- git@github.com:joeyh/ikiwiki.git
+- joey@git.kitenet.net:/srv/git/ikiwiki.git
 
 # htmlscrubber plugin
 # PageSpec specifying pages not to scrub
@@ -245,10 +254,10 @@ htmlscrubber_skip: tipjar
 # ikiwikihosting plugin
 # list of urls that alias to the main url
 urlalias:
-  - http://ikiwiki.branchable.com/
-  - http://ikiwiki.branchable.com/
-  - http://git.ikiwiki.info/
-  - http://www.ikiwiki.info/
+- http://ikiwiki.branchable.com/
+- http://ikiwiki.branchable.com/
+- http://git.ikiwiki.info/
+- http://www.ikiwiki.info/
 # openid of primary site owner
 owner: http://joey.kitenet.net/
 # optional hostname of site this one was branched from
@@ -288,7 +297,7 @@ pingurl: []
 # PageSpec of pages to check for spam
 blogspam_pagespec: '*'
 # options to send to blogspam server
-#blogspam_options: 'blacklist=1.2.3.4,blacklist=8.7.6.5,max-links=10'
+#blogspam_options: blacklist=1.2.3.4,blacklist=8.7.6.5,max-links=10
 # blogspam server XML-RPC url
 #blogspam_server: ''
 
@@ -308,9 +317,9 @@ locked_pages: tipjar or tips/DreamHost
 
 # openid plugin
 # url pattern of openid realm (default is cgiurl)
-#openid_realm: http://*.branchable.com/
+#openid_realm: ''
 # url to ikiwiki cgi to use for openid authentication (default is cgiurl)
-#openid_cgiurl: http://ikiwiki.branchable.com/ikiwiki.cgi
+#openid_cgiurl: ''
 
 # passwordauth plugin
 # a password that must be entered when signing up for an account
@@ -335,24 +344,50 @@ langdefdir: /usr/share/highlight/langDefs
 # mdwn plugin
 # enable multimarkdown features?
 #multimarkdown: 0
+# disable use of markdown discount?
+#nodiscount: 0
 
 # po plugin
 # master language (non-PO files)
 #po_master_language: en|English
 # slave languages (translated via PO files) format: ll|Langname
 #po_slave_languages:
-#  - fr|Français
-#  - es|Español
-#  - de|Deutsch
+#- fr|Français
+#- es|Español
+#- de|Deutsch
 # PageSpec controlling which pages are translatable
 po_translatable_pages: ''
 # internal linking behavior (default/current/negotiated)
 po_link_to: default
 
 ######################################################################
-# misc plugins
-#   (filecheck)
+# special-purpose plugins
+#   (osm, underlay)
 ######################################################################
+
+# osm plugin
+# the default zoom when you click on the map link
+#osm_default_zoom: 15
+# the icon shown on links and on the main map
+#osm_default_icon: ikiwiki/images/osm.png
+# the alt tag of links, defaults to empty
+#osm_alt: ''
+# the output format for waypoints, can be KML, GeoJSON or CSV (one or many, comma-separated)
+#osm_format: KML
+# the icon attached to a tag, displayed on the map for tagged pages
+#osm_tag_default_icon: icon.png
+# Url for the OpenLayers.js file
+#osm_openlayers_url: http://www.openlayers.org/api/OpenLayers.js
+# Layers to use in the map. Can be either the 'OSM' string or a type option for Google maps (GoogleNormal, GoogleSatellite, GoogleHybrid or GooglePhysical). It can also be an arbitrary URL in a syntax acceptable for OpenLayers.Layer.OSM.url parameter.
+#osm_layers:
+#  OSM: GoogleSatellite
+# Google maps API key, Google layer not used if missing, see https://code.google.com/apis/console/ to get an API key
+#osm_google_apikey: ''
+
+# underlay plugin
+# extra underlay directories to add
+#add_underlays:
+#- /home/b-ikiwiki/wiki.underlay
 
 ######################################################################
 # web plugins
@@ -380,6 +415,8 @@ comments_pagename: comment_
 comments_allowauthor: 0
 # commit comments to the VCS
 comments_commit: 1
+# Restrict formats for comments to (no restriction if empty)
+comments_allowformats: ''
 
 # getsource plugin
 # Mime type for returned source.
@@ -388,16 +425,20 @@ comments_commit: 1
 # mirrorlist plugin
 # list of mirrors
 #mirrorlist: {}
+# generate links that point to the mirrors' ikiwiki CGI
+#mirrorlist_use_cgi: 1
 
 # repolist plugin
 # URIs of repositories containing the wiki's source
 repositories:
-  - ssh://b-ikiwiki@ikiwiki.branchable.com/
-  - git://ikiwiki.branchable.com/
+- ssh://b-ikiwiki@ikiwiki.branchable.com/
+- git://ikiwiki.branchable.com/
 
 # search plugin
 # path to the omega cgi program
 omega_cgi: /usr/lib/cgi-bin/omega/omega
+# use google site search rather than internal xapian index?
+google_search: 1
 
 # theme plugin
 # name of theme to enable
@@ -406,21 +447,21 @@ omega_cgi: /usr/lib/cgi-bin/omega/omega
 # websetup plugin
 # list of plugins that cannot be enabled/disabled via the web interface
 websetup_force_plugins:
-  - httpauth
-  - openid
-  - mdwn
-  - wmd
+- httpauth
+- openid
+- mdwn
+- wmd
 # list of additional setup field keys to treat as unsafe
 websetup_unsafe:
-  - url
-  - cgiurl
-  - verbose
-  - syslog
-  - usedirs
-  - prefix_directives
-  - indexpages
-  - repositories
-  - sslcookie
+- url
+- cgiurl
+- verbose
+- syslog
+- usedirs
+- prefix_directives
+- indexpages
+- repositories
+- sslcookie
 # show unsafe settings, read-only, in web interface?
 websetup_show_unsafe: 0
 
@@ -447,24 +488,31 @@ directive_description_dir: ikiwiki/directive
 # Should teximg use dvipng to render, or dvips and convert?
 #teximg_dvipng: ''
 # LaTeX prefix for teximg plugin
-#teximg_prefix: |
-#  \documentclass{article}
+#teximg_prefix: '\documentclass{article}
+#
 #  \usepackage[utf8]{inputenc}
+#
 #  \usepackage{amsmath}
+#
 #  \usepackage{amsfonts}
+#
 #  \usepackage{amssymb}
+#
 #  \pagestyle{empty}
+#
 #  \begin{document}
+#
+#'
 # LaTeX postfix for teximg plugin
-#teximg_postfix: '\end{document}'
+#teximg_postfix: \end{document}
 
 ######################################################################
 # other plugins
 #   (aggregate, autoindex, brokenlinks, camelcase, ddate, embed, favicon,
-#    flattr, goodstuff, htmlbalance, localstyle, missingsite, pagetemplate,
-#    parked, pingee, pinger, prettydate, recentchanges, recentchangesdiff,
-#    relativedate, rsync, sidebar, smiley, sortnaturally, tag,
-#    testpagespec, transient, typography, underlay)
+#    filecheck, flattr, goodstuff, htmlbalance, localstyle, missingsite,
+#    notifyemail, pagetemplate, parked, pingee, pinger, prettydate,
+#    recentchanges, recentchangesdiff, relativedate, rsync, sidebar,
+#    smiley, sortnaturally, tag, testpagespec, trail, transient, typography)
 ######################################################################
 
 # aggregate plugin
@@ -472,9 +520,6 @@ directive_description_dir: ikiwiki/directive
 aggregateinternal: 1
 # allow aggregation to be triggered via the web?
 #aggregate_webtrigger: 0
-# cookie control
-cookiejar:
-  file: /home/b-ikiwiki/.ikiwiki/cookies
 
 # autoindex plugin
 # commit autocreated index pages
@@ -525,8 +570,3 @@ tag_autocreate_commit: 1
 # typography plugin
 # Text::Typography attributes value
 #typographyattributes: 3
-
-# underlay plugin
-# extra underlay directories to add
-#add_underlays:
-#  - /home/b-ikiwiki/wiki.underlay
