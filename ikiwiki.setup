@@ -83,6 +83,7 @@ banned_users:
 - ip(80.187.*.*)
 - Toni
 - ip(124.105.173.121)
+- domtheo9110
 # where the source of the wiki is located
 srcdir: /home/b-ikiwiki/source/doc
 # where to build the wiki
