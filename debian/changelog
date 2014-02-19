@@ -1,4 +1,12 @@
-ikiwiki (3.20130904.2) UNRELEASED; urgency=low
+ikiwiki (3.20140125) unstable; urgency=medium
+
+  * inline: Allow overriding the title of the feed. Closes: #735123
+    Thanks, Christophe Rhodes
+  * osm: Escape name parameter. Closes: #731797
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 25 Jan 2014 16:40:32 -0400
+
+ikiwiki (3.20140102) unstable; urgency=low
 
   * aggregate: Improve display of post author.
   * poll: Fix behavior of poll buttons when inlined.
@@ -18,10 +26,12 @@ ikiwiki (3.20130904.2) UNRELEASED; urgency=low
     corrupt themselves, which happens all too frequently).
   * osm: Remove invalid use of charset on embedded javascript tags.
     Closes: #731197
-  * style.css: Add compatability definitions for more block-level
+  * style.css: Add compatibility definitions for more block-level
     html5 elements. Closes: #731199
+  * aggregrate: Fix several bugs in handling of empty and colliding
+    titles when generating filenames.
 
- -- Joey Hess <joeyh@debian.org>  Thu, 05 Sep 2013 10:01:10 -0400
+ -- Joey Hess <joeyh@debian.org>  Thu, 02 Jan 2014 12:22:22 -0400
 
 ikiwiki (3.20130904.1) unstable; urgency=low
 
