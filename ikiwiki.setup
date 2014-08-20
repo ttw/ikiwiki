@@ -84,6 +84,10 @@ banned_users:
 - Toni
 - ip(124.105.173.121)
 - domtheo9110
+- https://www.google.com/accounts/o8/id?id=AItOawnO6NxsiqDMNHCMugqNKPwCWmTAQ7v_2Fs
+- ip(58.186.127.104)
+- https://pypi.python.org/id/tlevine
+- ip(82.153.13.48)
 # where the source of the wiki is located
 srcdir: /home/b-ikiwiki/source/doc
 # where to build the wiki
