@@ -6,14 +6,19 @@ Feel free to add your own ikiwiki site! In case you have created a custom theme 
 See also: [Debian ikiwiki popcon graph](http://qa.debian.org/popcon.php?package=ikiwiki)
 and [google search for ikiwiki powered sites](http://www.google.com/search?q=%22powered%20by%20ikiwiki%22).
 
-While nothing makes me happier than knowing that ikiwiki has happy users,
+While nothing makes us happier than knowing that ikiwiki has happy users,
 dropping some change in the [[TipJar]] is a nice way to show extra
 appreciation.
 
 Ikiwiki Hosting
 ===============
 
-* [Branchable](http://branchable.com/)
+[[!table data="""
+Name                                         | Ikiwiki Configuration                                                             | Costs
+[Branchable](http://branchable.com/)         | Open configuration with [ikiwiki-hosting](http://ikiwiki-hosting.branchable.com/) | Free for free software, otherwise involves fees
+[Piny.be](http://piny.be/)                   | Restricted configuration with [Piny](http://piny.be/piny-code/)                   | Free for non-profit purposes (including open source projects); commercial activity disallowed.
+[FairlyStable.org](http://fairlystable.org/) | Restricted configuration with [Piny](http://piny.be/piny-code/)                   | Free for small projects, otherwise involves fees
+"""]]
 
 Projects & Organizations
 ========================
@@ -22,6 +27,8 @@ Projects & Organizations
 * [NetBSD wiki](http://wiki.netbsd.org)
 * The [GNU Hurd](http://www.gnu.org/software/hurd/)
 * [DragonFly BSD](http://www.dragonflybsd.org/)
+* [X.org](http://www.x.org/)
+* [Freedesktop.org](http://www.freedesktop.org/) and many projects therein
 * [Monotone](http://wiki.monotone.ca/)
 * The [Free Software Foundation](http://fsf.org) uses it for their internal wiki, with subversion.
 * The [cairo graphics library](http://cairographics.org/) website.
@@ -50,7 +57,6 @@ Projects & Organizations
 * [Public Domain collection of Debian related tips & tricks](http://dabase.com/tips/) - please add any tips too
 * [Finnish Debian community](http://debian.fi)
 * [dist-bugs](http://dist-bugs.kitenet.net/)
-* [Chaos Computer Club Düsseldorf](https://www.chaosdorf.de)
 * [monkeysphere](http://web.monkeysphere.info/)
 * [Cosin Homepage](http://cosin.ch) uses an Ikiwiki with a subversion repository.
 * [Bosco Free Orienteering Software](http://bosco.durcheinandertal.ch)
@@ -89,6 +95,12 @@ Projects & Organizations
 * [[Nos oignons|http://nos-oignons.net]] - Tor exit nodes funded by the community.
 * [[CAS Libres|http://cas-libres.poivron.org]] - A French feminist radio program.
 * [[Les Barricades|http://barricades.int.eu.org]] - A French socialist choir (CSS has been adapted from the one of [[Grésille|http://www.gresille.org]]).
+* [DKØTU Amateur Radio Station](http://www.dk0tu.de), TU Berlin
+* [[Plan A|http://www.plan-a-muenchen.de/]] - A proposal for improvement of the urban public transport in Munich (by PRO BAHN, Bund Naturschutz and others)
+* [[Smuxi IRC Client|https://smuxi.im/]] - powerful IRC client for GNOME
+* [[hplusroadmap|http://diyhpl.us/wiki/]] - a community for open source hardware, do-it-yourself biohacking and practical transhumanism
+* [[OpenAFS|http://wiki.openafs.org]] - an open-source, cross-platform distributed file system
+* [Copyleft.org](http://copyleft.org/)
 
 Personal sites and blogs
 ========================
@@ -173,7 +185,6 @@ Personal sites and blogs
 * [L'Altro Wiki](http://laltromondo.dynalias.net/~iki/) Tutorials, reviews, miscellaneus articles in English and Italian.
 * gregoa's [p.r. - political rants](http://info.comodo.priv.at/pr/)
 * [Michael Hammer](http://www.michael-hammer.at/)
-* [Richardson Family Wiki](http://the4richardsons.com) A wiki, blog or some such nonsense for the family home page or something or other... I will eventually move the rest of my sites to ikiwiki. The source of the site is in git.
 * [The personal website of Andrew Back](http://carrierdetect.com)
 * [Paul Elms](http://paul.elms.pro) Personal site and blog in russian.
 * [Salient Dream](http://www.salientdream.com/) - All Things Strange. 
@@ -188,3 +199,9 @@ Personal sites and blogs
  * [Z is for Zombies](http://blog.zouish.org/) — personal blog/site of Francesca Ciceri
 * Julien Lefrique's [homepage](http://julien.lefrique.name/), hosted on [GitHub pages](https://github.com/jlefrique/jlefrique.github.com) with CGI disabled
 * [Anarcat's homepage](http://anarcat.ath.cx/) - with a custom [[theme|theme_market]]
+* [Wouter's Blog](http://grep.be/blog/), with a custom CSS stylesheet based off the rest of his website.
+* [Julian Andres Klode's blog](http://jak-linux.org/)
+* [KheOps's blog](https://w.ceops.eu/words/)
+* [Stig Sandbeck Mathisen](http://fnord.no/) - Personal site and blog, with a bootstrap theme, and varnish frontend.
+* Kalle Söderman: [Seen Architecture](http://img.kalleswork.net), [Stockholm Project](http://stockholm.kalleswork.net) - Mainly -image galleries using the album and osm plugins with a customized html5 theme.
+* [James Technotes](http://jamestechnotes.com), my [wiki](http://jamestechnotes.com) and [blog](http://jamestechnotes.com/blog).

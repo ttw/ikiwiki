@@ -6,7 +6,7 @@ Copyright: © 2006-2011 Joey Hess <joey@ikiwiki.info>
 License: GPL-2+
 
 Files: templates/* underlays/basewiki/* doc/ikiwiki/directive/*
- ikiwiki.setup po/underlay/*
+ ikiwiki.setup po/underlays/*
 Copyright: © 2006-2010 Joey Hess <joey@ikiwiki.info>
 License: other
  Redistribution and use in source and compiled forms, with or without
@@ -69,10 +69,6 @@ License: GPL-2+
 
 Files: IkiWiki/Plugin/img.pm
 Copyright: © 2006 Christian Mock <cm@tahina.priv.at>
-License: GPL-2+
-
-Files: IkiWiki/Plugin/topography.pm
-Copyright: © 2006 Recai Oktaş <roktas@debian.org>
 License: GPL-2+
 
 Files: IkiWiki/Plugin/map.pm
@@ -146,11 +142,11 @@ Copyright: © 2009 William Uther
 License: GPL-2+
 
 Files: IkiWiki/Plugin/cvs.pm
-Copyright: © 2009 Amitai Schlair
+Copyright: © 2009 Amitai Schlair <http://www.schmonz.com/>
 License: BSD-2-clause
 
 Files: IkiWiki/Plugin/rsync.pm
-Copyright: © 2009 Amitai Schlair
+Copyright: © 2009 Amitai Schlair <http://www.schmonz.com/>
 License: BSD-2-clause
 
 Files: IkiWiki/Plugin/osm.pm
@@ -191,7 +187,7 @@ License: GPL-2+
  Smileys were copied from Moin Moin.
 
 Files: doc/smileys/neutral.png
- doc/smileys/question.pn
+ doc/smileys/question.png
 Copyright: (c) 2002 phpBB Group
 License: GPL-2
  These smileys were copied from phpBB.
@@ -211,28 +207,56 @@ Comment:
  From http://code.google.com/p/openid-selector/
 License: BSD-2-clause
 
+Files: underlays/openid-selector/ikiwiki/openid/goa-*
+Copyright:
+ © 2011 Red Hat, Inc.
+License: LGPL-2.1+
+Comment:
+ taken from data/icons/16x16/ in gnome-online-accounts git
+
+Files: underlays/openid-selector/ikiwiki/openid/wordpress.png
+Copyright:
+ © 2003-2013 "the contributors"
+License: GPL-2+
+Comment:
+ taken from wp-admin/images/w-logo-blue.png in wordpress/3.8.1+dfsg1-1
+ and trivially modified (resized to 16x16, placed on a white background)
+
+Files:
+ icons/aol.svg
+ icons/livejournal.svg
+ icons/verisign.svg
+ underlays/openid-selector/ikiwiki/openid/aol.png
+ underlays/openid-selector/ikiwiki/openid/livejournal.png
+ underlays/openid-selector/ikiwiki/openid/verisign.png
+Copyright:
+ © 2014 Simon McVittie
+License: other
+ Redistribution and use in source and compiled forms, with or without
+ modification, are permitted under any circumstances. No warranty.
+
 Files: underlays/jquery/*
 Copyright: © 2005-2011 by John Resig, Branden Aaron & Jörn Zaefferer
            © 2011 The Dojo Foundation
 License: GPL-2
 
-Files: underlays/attachments/ikiwiki/jquery-ui*
+Files: underlays/attachment/ikiwiki/jquery-ui*
 Copyright: © 2008 Paul Bakaus
            © 2011 the jQuery UI Authors (http://jqueryui.com/about)
 License: GPL-2
 
-Files: underlays/attachments/ikiwiki/jquery.tmpl*
+Files: underlays/attachment/ikiwiki/jquery.tmpl*
 Copyright: © Boris Moore
 License: GPL-2
 
-Files: underlays/attachments/ikiwiki/
+Files: underlays/attachment/ikiwiki/*
 Copyright: 2010, 2011 Sebastian Tschan
 Comment:
  blueimp / jQuery-File-Upload widget,
  from https://github.com/blueimp/jQuery-File-Upload
 License: Expat
 
-Files: underlays/themes/blueview/style.css
+Files: themes/blueview/style.css
 Copyright: © 2009,2010 Bernd Zeimetz
            © 2008 Yahoo! Inc.
 Comment:
@@ -240,15 +264,15 @@ Comment:
  http://developer.yahoo.com/yui/license.html
 License: GPL-2+
 
-Files: underlays/themes/blueview/*
+Files: themes/blueview/*
 Copyright: © 2009,2010 Bernd Zeimetz
 License: GPL-2+
 
-Files: underlays/themes/goldtype/*
+Files: themes/goldtype/*
 Copyright: © Lars Wirzenius
 License: GPL-2+
 
-Files: underlays/themes/monochrome/*
+Files: themes/monochrome/*
 Copyright: © 2012 Jon Dowland
 License: GPL-2+
 
@@ -301,3 +325,20 @@ License: Expat
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE. 
+
+License: LGPL-2.1+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+ .
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU Lesser General
+ Public License can be found in `/usr/share/common-licenses/LGPL-2.1'.

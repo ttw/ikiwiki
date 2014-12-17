@@ -1,3 +1,5 @@
+## installation queries from brush
+
 thanks for this plugin.  it might help me in my application, which is to provide album/galleries which can be edited (ie. new images added, taken away, etc.) through web interface.
 
 > That's my goal eventually, too. Perhaps you can help to
@@ -57,6 +59,13 @@ i'm new to ikiwiki, apologies if this is dealt with elsewhere.  -brush
 > out this plugin when you've mastered the basics of IkiWiki. --[[smcv]]
 
 ----
+
+## design feedback from joeyh on an earlier version
+
+Not entirely relevant any more.
+[[!toggle id="old-design-feedback" text="show"]]
+[[!toggleable id="old-design-feedback" text="""
+[[!toggle id="old-design-feedback" text="hide"]]
 
 You had wanted my feedback on the design of this. I have not looked at the
 code or tried it yet, but here goes. --[[Joey]]	
@@ -256,11 +265,18 @@ code or tried it yet, but here goes. --[[Joey]]
 >> changed, and only update those viewers where it has. But the dependency
 >> type stuff is still very new, and not plugin friendly .. so only just
 >> possible, --[[Joey]] 
+"""]]
 
 ----
 
+## alternative "special extension" design (conclusion: "don't")
+
 '''I think the "special extension" design is a dead-end, but here's what
 happened when I tried to work out how it would work. --[[smcv]]'''
+
+[[!toggle id="special-extension-sketch" text="show"]]
+[[!toggleable id="special-extension-sketch" text="""
+[[!toggle id="special-extension-sketch" text="hide"]]
 
 Suppose that each viewer is a JPEG-or-GIF-or-something, with extension
 ".albumimage". We have a gallery "memes" with three images, badger,
@@ -402,8 +418,17 @@ Things that would be nice, and are probably possible:
 * some way to deep-link to memes/badger.jpg with a wikilink, without knowing a
   priori that it's secretly a JPEG (probably harder than it looks - you'd
   have to make a directive for it and it's probably not worth it)
+"""]]
 
 ----
+
+## resolved bug reports
+
+[[!toggle id="fixed-bugs" text="show"]]
+[[!toggleable id="fixed-bugs" text="""
+[[!toggle id="fixed-bugs" text="hide"]]
+
+### bug: unable to vary thumbnail size
 
 Hi smcv, great plugin. I am an ikiwiki newbie but so far I've had success using your plugin.
 I've integrated the jquery masonry plugin into the albumitem template and it works great.
@@ -411,7 +436,11 @@ But is there a way to create thumnails of different sizes? I've passed thumnails
 and value to album directive and while it does create the new thumbnail sizes it doesn't use them,
 The 96x96 thumbnails still appear on the page no matter what I do. - jaime
 
+> Fixed in album5 branch, thanks to [[KathrynAndersen]]. --[[smcv]]
+
 ----
+
+### failed installation
 
 Hi, the plugin looks great, but I am probably too dumb to use it ;( here is what I did:
 created page gal.mdwn with just \[\[!album\]\] directive (no arguments) and subdirectory gal/ with images in form img_1234.jpg
@@ -458,23 +487,35 @@ Thanks Lukas
 >> Thanks for all the work you did on the plugin! --Lukas
 
 ----
-Hi smcv, we spoke on irc the other day. Passed `show => "0"` on line 126 in album.pm to remove the limit on the thumbnails shown on the album page. Setting it on the album directive didn't work. As mentioned above by Jaime setting the thumbnailsize doesn't catch either. Or rather if I git push after changing the album directive the generated thumbnails (the image files) are the correct size as set in the directive. The html however uses the default thumbnailsize as hardcoded in album.pm and has broken thumbnails as it links to a file with the default size in the filename.
+
+### bug + patch: not all images shown on album page
+
+Hi smcv, we spoke on irc the other day. Passed `show => "0"` on line 126 in album.pm to remove the limit on the thumbnails shown on the album page. Setting it on the album directive didn't work.
+
+--kjs
+
+> That sounds like a correct solution. I'll fix that in my branch when I work on
+> this again. --[[smcv]]
+
+>> Fixed in `album5` branch --s
+
+----
+
+### bug: thumbnailsize doesn't work
+
+As mentioned above by Jaime setting the thumbnailsize doesn't catch either. Or rather if I git push after changing the album directive the generated thumbnails (the image files) are the correct size as set in the directive. The html however uses the default thumbnailsize as hardcoded in album.pm and has broken thumbnails as it links to a file with the default size in the filename.
+
+> [[KathrynAndersen]] fixed this, see below. --[[smcv]]
+
+>> Fixed in `album5` branch --s
 
 Issuing `ikiwiki --rebuild` knocks the system into another gear where the thumbnails show up correctly but this is only due to the html being the same as above (linking to hardcoded thumbnailsize) but the generated thumbnail images are now matching the hardcoded size ignoring the thumbnailsize attribute on the album directive.
 
 For me this behaviour is way beyond my skills to sort out (I'm no coder). The albumplugin ikiwiki combo is very attractive to me and the plugin i soo close to working!
 
-I've changed the behavior of the "slideshow" to show the next image when clicking the large image as downloading a full resolution image is a rare use case in a gallery of this type imho. The large clicktarget means you are likely to unnecessarily download large files otherwise. I can't quite follow the template, album.pm flow so I can't figure out how to put a "download full resolution" link on the viewer page which would be my next step. To achieve the next link i added ` link => ($nextpage or $album),` around line 454 in `my $img`
-
-My wishlist for the plugin would include:
-
-- Reading exif info from the imagefile
-- Keeping the full resolution image files out of version control
-- Being able to create new albums by tag or bym anually picking images from other albums. Could be a simple comma separated list of viewer names, or even full urls, in the album directive.
-
 --kjs
 
-----
+### suggested fix for thumbnail size bug
 
 I've tracked down the "always showing the 96x96 thumbnails" bug!
 
@@ -516,10 +557,333 @@ Here's a context-diff of my fix:
 
 -- [[KathrynAndersen]]
 
+> I haven't tried this change, but it seems sane. I'll apply it
+> when I next work on this plugin.
+>
+> (OOI: why not a unified diff? The VCS world seems to have
+> settled on those as universal, and I find them easier to
+> read.)
+>
+> --[[smcv]]
+
+>> Fixed in `album5` --s
+
 ----
+
+### bug: inability to show more than 10 items
 
 I've found another bug. The album plugin doesn't allow one to have more than 10 items in an album section. This is because it uses "inline" to display album sections, and the default for inline is to show only 10 items. So it only shows 10 items.
 
 What would be good is if the album directive could have a "show" parameter which is passed on to preprocess_inline, so that users could decide how many items to show (including ALL of them, if they give show=0).
 
 -- [[KathrynAndersen]]
+
+> My intention was that all items would always be shown, so I would always pass
+> `show => 0` to `preprocess_inline` (as kjs suggested above), but that must have
+> got lost somewhere. I'll apply it next time I work on this plugin.
+>
+> An optional `show` parameter would be a possible enhancement beyond that,
+> although I don't know how useful it would be; if it isn't passed, the
+> default should be 0 (unlimited). --[[smcv]]
+
+>> Fixed in `album5` --s
+
+----
+
+### cbaines' commit to change default thumbnail size
+
+Regarding commit `Change the default thumbnail size`: as far as I
+understand it, `size => 96x96` is meant to set the image size to
+be as large as possible given these constraints: width ≤ 96px,
+height ≤ 96px, and the original aspect ratio is preserved. So I
+would hope that 96x96 doesn't distort the thumbnails. What distortion
+are you seeing, and which versions of Imagemagick and Perlmagick
+are you using?
+
+--[[smcv]]
+
+> I rebuilt the examples using both your album4 and album5 branches, and I only
+> see this in the album4 branch. So this is probably ok to ignore.
+> --[[cbaines]]
+>
+>> OK, I'll assume that was a duplicate of an earlier patch, probably the
+>> one from KathrynAndersen. --s
+
+"""]]
+
+----
+
+## wishlist + patch: make clicking on the large image go to the next
+
+I've changed the behavior of the "slideshow" to show the next image when clicking the large image as downloading a full resolution image is a rare use case in a gallery of this type imho. The large clicktarget means you are likely to unnecessarily download large files otherwise. I can't quite follow the template, album.pm flow so I can't figure out how to put a "download full resolution" link on the viewer page which would be my next step. To achieve the next link i added ` link => ($nextpage or $album),` around line 454 in `my $img`
+
+--kjs
+
+> That seems reasonable. I'll consider that when I work on this
+> plugin again next. --[[smcv]]
+
+----
+
+## wishlist from kjs
+
+My wishlist for the plugin would include:
+
+- Reading exif info from the imagefile
+- ~~Keeping the full resolution image files out of version control~~ Solved this by simply creating a underlay for the images. Works out of the box for my non cgi workflow.
+- Being able to create new albums by tag or by manually picking images from other albums. Could be a simple comma separated list of viewer names, or even full urls, in the album directive.
+- A counter showing **current image/total number of images in album**. This would mean that you know how many images you have left to click through before you have seen all images in an album. This gives you enought info to decide weather to click through or go back/leave.
+
+--kjs
+
+> I want the first two of those too, perhaps one day I'll get round to
+> implementing them.
+>
+> For the third, you can get the same practical effect using an inline
+> as documented in the main page. --[[smcv]]
+>> The downside to current behaviour is that clicking an inlined thumbnail will take you to the original album context. Previous/Next image will not match the thumbnails in the inline but the thumbnails in the album. This is a bit confusing for users and prevents using the image in multiple contexts without duplicating the image. To achieve what I'm looking for there would have to be several AlbumViewer pages for a single image. --kjs
+>>
+>>> Hmm, OK. That breaks the "one picture : one page" mental model,
+>>> unfortunately. The pictures themselves can't be first-class wiki pages (see
+>>> lengthy design discussions with Joey above) because they aren't something
+>>> that produces HTML, and don't have human-readable text source code.
+>>> In the current (album5) design, the viewer pages that are automatically
+>>> created to go alongside the pictures are basically stand-ins for the
+>>> pictures, as far as metadata, wikilinks, tags and other "first-class
+>>> wiki page" things are concerned. --s
+
+>>>> I can see why it's important to keep these models simple and have figured out
+>>>> that the viewer pages are stand-ins for the image. Just as a tought though. If 
+>>>> this relationship was made more explicit ie. the viewer pages *are the content*
+>>>> just initially generated from the image metadata with a link to the image. Then 
+>>>> the mental model would stay intact and more in line with how html and the 
+>>>> implementation works.
+>>>>
+>>>> One thing to point out is that last time I tried pages can be members of 
+>>>> arbitrary numbers of trails/albums. You just get multiple rows of navigation, one
+>>>> for each trail. This doesn't quite work as it's hard to know which one to click.
+>>>>
+>>>> --k
+
+>>>>> Pages can be part of arbitrarily many trails, yes - that's a consequence of
+>>>>> how trails are created. If you can think of a better way to present a page
+>>>>> that's in more than one trail, I'd welcome ideas... I did originally have an
+>>>>> implementation where only one trail would generate links, but when I tried
+>>>>> it on some (rather artificial) overlapping trails, the result was more
+>>>>> confusing. --s
+
+>>> If there are to be viewer pages elsewhere in the wiki, I don't think
+>>> inheriting the picture's metadata is desired. Suppose you have a
+>>> picture of Alice and Bob in the album "holiday in Exampleton, 2010",
+>>> and it is tagged people/alice, people/bob and places/exampleton; the
+>>> other contexts it appears in might include "pictures of Alice" and
+>>> "pictures near Exampleton". If you look at the tag page for
+>>> places/exampleton, I doubt you want to see that photo listed three
+>>> times - once is enough, there's only one actual photo after all. So
+>>> I think the "main" viewer page should be the only one that has
+>>> the taglinks for people/alice, people/bob, places/exampleton.
+>>> --s
+
+>>>> The problem exposed by the tag page issue is very tricky. As you'd
+>>>> probably want the exif info, captions and titles to transfer. Just not 
+>>>> necessarily the tags.
+>>>> --k
+
+>>> My next question is, should the viewer page representing that
+>>> particular picture in its context of "pictures near Exampleton"
+>>> (i.e. its "next" and "previous" links go to the next and
+>>> previous picture near Exampleton, regardless of whether it was
+>>> on an earlier or later visit) be a first-class wiki page
+>>> at all?
+>>> --s
+
+>>> * Does it make any sense to comment on "this picture in this
+>>>   context", if your wiki has comments, or should the only
+>>>   place you can comment on it be its "main" viewer page?
+>>> * Is there any need for it to be possible to make a wikilink
+>>>   to that particular picture in that particular context,
+>>>   or does it only need wikilinks "to the picture" (which,
+>>>   as an implementation detail, really go to its "main" viewer
+>>>   page)?
+>>> * Can the picture in that particular context have tags
+>>>   that are orthogonal to the tags its "main" viewer page has?
+>>> * ... and so on for various wiki features
+>>>
+>>> It sound as though the answer might ideally be that this secondary
+>>> viewer page doesn't need to be a first-class wiki page at all,
+>>> only a HTML output... except that the trail plugin works in terms
+>>> of next and previous first-class wiki pages, not next and
+>>> previous HTML outputs, and the HTML-generation pipeline
+>>> is really aimed towards real pages.
+>>>
+>>> Perhaps the secondary viewer page should end up looking
+>>> something like this:
+>>>
+>>>     \[[!albumviewer original=holiday-in-exampleton-2010/img1234
+>>>       comment="To edit picture metadata, edit the original page instead"]]
+>>>
+>>> and one of the side-effects of the albumviewer directive should be to
+>>> replace [[plugins/comments]] with a link to the original? --s
+
+>>>> One thing to consider is the built in difference between the original and 
+>>>> the secondary inferred by the fact that the first is an `album` the second
+>>>> an `inline` --k
+
+>>>>> I had assumed that both the "original" album (the one where the picture
+>>>>> is physically located), and any other places you wanted to display it,
+>>>>> would be some other directive whose implementation includes a call to
+>>>>> `preprocess_inline`. `inline` on its own is not enough to create
+>>>>> viewer pages to display the pictures, regardless of whether you
+>>>>> want them to be one-per-picture or many-per-picture, and I'm not
+>>>>> going to wedge yet more functionality into that plugin :-)
+>>>>>
+>>>>> It might be a good idea for the thing that displays pictures not
+>>>>> physically located below that point to be a different directive, yes.
+>>>>> --s
+
+>>>> ### Single viewer 
+>>>> For my own usecase what you describe makes sense. I see the content of an inline object
+>>>> (struggling a bit with what terms to user here) as a particular composition of
+>>>> viewers. Perhaps comments should only be possible on the page with the inline rather 
+>>>> than the secondary viewer pages as the inline page not the image viewer is 
+>>>> the first-class page in this scenario? The inline page would also be the page you tag 
+>>>> etc. to make it show up in various contexts such as the tag page.
+>>>>
+>>>> With the thinking outlined above I'd say that the secondary viewer should be a 
+>>>> non editable clone of the original viewer without any source. Just html output with 
+>>>> backlinks to the original page. This means that there are limitations to how these 
+>>>> secondary viewers can be used as the title, caption etc might fit some contexts 
+>>>> better than others. Personally this is fine as I see these inline based albums as 
+>>>> compositions or views on existing content.
+>>>> --k
+>>>>
+>>>>> This is basically what I thought at first, but I realised while
+>>>>> writing my earlier comments that it would be necessary
+>>>>> to hack up [[plugins/trail]] fairly seriously to make it produce
+>>>>> a trail through things that are not first-class wiki pages, and
+>>>>> I'm not sure how much it would be necessary to subvert the
+>>>>> rendering pipeline to get the right parentlinks and so on. --s
+>>>>
+>>>> ###Multiple viewers alternative
+>>>> The alternative is having a page say in `/story/album.mdwn` with the following directive
+>>>> \[[!inline  pages="/01/IMGP6494 or /02/IMGP6601 or /04/IMGP6922" sort="title"  show="0" template="albumitem"]]
+>>>> that creates new fully fledged editable viewers for each image in `/story/album/'
+>>>> without tags being auto populated but backlinks to the original album viewer.
+>>>> --k
+>>>>
+>>>>> It can't *only* be an inline, because an inline wouldn't generate the
+>>>>> viewer pages, but I see what you mean. --s
+>>>>>
+>>>>>> That's actually excellent as the inline is a very useful feature
+>>>>>> the way it works now. I started writing about this yesterday but
+>>>>>> got interrupted. My indexes of albums use the inline in it's current
+>>>>>> form. --k
+>>>>  
+>>>> This would make the viewers completely independent allowing for unique titles, captions and comments
+>>>> depending on context. Very useful when creating powerpoint like slideshows where you might need 
+>>>> different captions depending on the context. In your example wiki with photos from gigs this would allow 
+>>>> a page with an album inline about stage lighting with a selections of images and captions that highlight
+>>>> relevant things in the image as well as a separate inline album page, with some of the same images, 
+>>>> about drumming styles and posture/grip of drummers.
+>>>>
+>>>> I started writing all this supporting your single page case but looking at it now from my limited
+>>>> understanding of how ikiwiki works it seems the multiple viewers option is conceptually cleaner 
+>>>> and more flexible. It relies on three things:
+
+>>>> * A mental model where the viewer page is the content not the image
+>>>> * That tags aren't automatically transferred from the original context. This doesn't seem that critical however.
+>>>> * Backlinks to the other places the image is used.
+>>>>
+>>>> --[[kjs]]
+
+I've added "--k" to some of your comments so other readers (possibly including
+my future self) can keep track of our conversation, I hope you don't mind :-)
+--s
+
+----
+
+## cbaines' CSS changes
+
+Regarding the CSS changes: I'll try to have a look soon, work out
+what actually changed (since you re-ordered the CSS, so it isn't
+immediately obvious from the diff), and integrate some or all of your
+changes. Since Joey shows no signs of wanting to merge it, and "out of tree"
+installation is currently a pain, I might split out the CSS changes into a
+separate `ikiwiki/album.css` so that the only thing that needs to be merged
+into style.css (or into local.css) is an appropriate
+`@import` rule.
+
+It shouldn't be necessary to add the album stuff to each individual
+theme's style.css unless you actually want an actiontabs album and
+a blueview album to be styled differently, because the IkiWiki Makefile
+concatenates them: for instance, `/usr/share/ikiwiki/themes/actiontabs/style.css`
+is the output of `cat doc/style.css themes/actiontabs/style.css`. So adding it
+to `doc/style.css` should be enough? --[[smcv]]
+
+> I don't think this is the case? Or at least, looking at the generated
+> stylesheet for the examples built using my branch, I would expect there to be
+> two copies of the album rules in the stylesheet [1], but there does not
+> appear to be. This could quite easily be a result of some mistake in my part
+> in not isolating the build though. --[[cbaines]]
+>
+> 1: <http://cbaines.net/projects/ikiwiki/album/dest/basic-actiontabs/style.css>
+>
+>> I searched for `/* relevant to the index page */` and found it twice,
+>> so I stand by what I said :-) --s
+>>
+>>> And right you are, unsure how I missed that. My album branch is now rebased
+>>> on your album5 branch (with the two now useless commits removed).
+>>> --[[cbaines]]
+
+cbaines, would you mind publishing an album with more realistic pixel-sizes
+of images using your modified CSS? It's difficult to get an idea of how it
+will degrade under conditions like "image size > browser window" with
+images as small as the ones you used. You might find
+<http://git.pseudorandom.co.uk/smcv/ikiwiki-demos/ikialbum.git>
+(`git clone git://git.pseudorandom.co.uk/git/smcv/ikiwiki-demos/ikialbum.git`),
+or the same techniques, useful: it contains images with a realistic pixel
+count, but very very lossy JPEG compression, to keep the size in bytes low.
+
+> I have now created a large (images) example, you can find all the examples
+> here [1]. I have also built all the examples with the album5 branch, you can
+> find the results here [2].
+>
+> 1: <http://cbaines.net/projects/ikiwiki/album/dest/>
+> 2: <http://cbaines.net/projects/ikiwiki/album/dest-album5/>
+
+It's much, much easier to review changes if you use separate commits for
+cosmetic changes like "separate index CSS from viewer CSS" and "more
+consistent indentation", and functional changes like turning the prev/next
+links from absolutely-positioned to floating. I'd be happy to apply
+the cosmetic changes if they were in commits that were literally only
+cosmetic changes, with no functional effect.
+
+> I have now rewritten the CSS changes to get a smaller diff. The only big
+> functional change is from the previous patch is the max-width stuff to cope
+> better with large images.
+
+For the functional bits: I think I'd have used floating boxes instead of the
+absolutely-positioned boxes that are currently used if they provided the effect
+I wanted. I can't remember exactly why I didn't do that now, but
+it might have been because if the browser window shrinks below the image width,
+floats have weird behaviour (they push the actual image out of the way), or because
+I wanted the entire left/right margin of the image to be clickable to have
+a large click-target for scrolling through the album.
+
+If there's something specific that you think is wrong with the CSS in my
+branch, could you please explain it, and perhaps we can come up with something
+that matches both our requirements?
+
+--smcv
+
+> I don't think that something specific is wrong with CSS in the album5 branch,
+> but it does not display large [3], or small [4] images very well. It might be
+> possible to resolve the image size issues without changing from absolute
+> positioning, but I felt (for no particular reason) that I would do it using
+> floats.
+>
+> The clickable region on the margin seems the most likely reason to me to go
+> with absolute positioning, as an initial look at doing this with floats
+> suggests that it is non-trivial.
+>
+> 3: <http://cbaines.net/projects/ikiwiki/album/dest-album5/large-goldtype/album/3/>
+> 4: <http://cbaines.net/projects/ikiwiki/album/dest-album5/basic-blueview/album/ikiwiki_old/>

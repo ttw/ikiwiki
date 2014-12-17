@@ -119,7 +119,7 @@ sub sessioncgi ($$) {
 	my $session=shift;
 
 	if ($q->param('do') eq 'blog') {
-		my $page=titlepage(decode_utf8($q->param('title')));
+		my $page=titlepage(decode_utf8(scalar $q->param('title')));
 		$page=~s/(\/)/"__".ord($1)."__"/eg; # don't create subdirs
 		# if the page already exists, munge it to be unique
 		my $from=$q->param('from');
@@ -329,8 +329,12 @@ sub preprocess_inline (@) {
 
 	my $ret="";
 
-	if (length $config{cgiurl} && ! $params{preview} && (exists $params{rootpage} ||
-	    (exists $params{postform} && yesno($params{postform}))) &&
+	my $postform = (exists $params{rootpage});
+	if (exists $params{postform}) {
+		$postform = yesno($params{postform});
+	}
+
+	if (length $config{cgiurl} && ! $params{preview} && $postform &&
 	    IkiWiki->can("cgi_editpage")) {
 		# Add a blog post form, with feed buttons.
 		my $formtemplate=template_depends("blogpost.tmpl", $params{page}, blind_cache => 1);
@@ -391,7 +395,9 @@ sub preprocess_inline (@) {
 					blind_cache => 1);
 			};
 			if ($@) {
-				error sprintf(gettext("failed to process template %s"), $params{template}.".tmpl").": $@";
+				# gettext can clobber $@
+				my $error = $@;
+				error sprintf(gettext("failed to process template %s"), $params{template}.".tmpl").": $error";
 			}
 		}
 		my $needcontent=$raw || (!($archive && $quick) && $template->query(name => 'content'));

@@ -5,6 +5,7 @@ package IkiWiki;
 use warnings;
 use strict;
 use Encode;
+use Fcntl q{:flock};
 use URI::Escape q{uri_escape_utf8};
 use POSIX ();
 use Storable;
@@ -14,7 +15,7 @@ use vars qw{%config %links %oldlinks %pagemtime %pagectime %pagecase
 	%pagestate %wikistate %renderedfiles %oldrenderedfiles
 	%pagesources %delpagesources %destsources %depends %depends_simple
 	@mass_depends %hooks %forcerebuild %loaded_plugins %typedlinks
-	%oldtypedlinks %autofiles @underlayfiles $lastrev};
+	%oldtypedlinks %autofiles @underlayfiles $lastrev $phase};
 
 use Exporter q{import};
 our @EXPORT = qw(hook debug error htmlpage template template_depends
@@ -33,6 +34,11 @@ our $installdir='/usr'; # INSTALLDIR_AUTOREPLACE done by Makefile, DNE
 our $DEPEND_CONTENT=1;
 our $DEPEND_PRESENCE=2;
 our $DEPEND_LINKS=4;
+
+# Phases of processing.
+sub PHASE_SCAN () { 0 }
+sub PHASE_RENDER () { 1 }
+$phase = PHASE_SCAN;
 
 # Optimisation.
 use Memoize;
@@ -103,6 +109,14 @@ sub getsetup () {
 		safe => 1,
 		rebuild => 1,
 	},
+	reverse_proxy => {
+		type => "boolean",
+		default => 0,
+		description => "do not adjust cgiurl if CGI is accessed via different URL",
+		advanced => 0,
+		safe => 1,
+		rebuild => 0, # only affects CGI requests
+	},
 	cgi_wrapper => {
 		type => "string",
 		default => '',
@@ -152,7 +166,8 @@ sub getsetup () {
 		type => "internal",
 		default => [qw{mdwn link inline meta htmlscrubber passwordauth
 				openid signinedit lockedit conditional
-				recentchanges parentlinks editpage}],
+				recentchanges parentlinks editpage
+				templatebody}],
 		description => "plugins to enable by default",
 		safe => 0,
 		rebuild => 1,
@@ -260,7 +275,7 @@ sub getsetup () {
 	html5 => {
 		type => "boolean",
 		default => 0,
-		description => "generate HTML5?",
+		description => "use elements new in HTML5 like <section>?",
 		advanced => 0,
 		safe => 1,
 		rebuild => 1,
@@ -343,11 +358,20 @@ sub getsetup () {
 		safe => 0, # paranoia
 		rebuild => 0,
 	},
+	libdirs => {
+		type => "string",
+		default => [],
+		example => ["$ENV{HOME}/.local/share/ikiwiki"],
+		description => "extra library and plugin directories",
+		advanced => 1,
+		safe => 0, # directory
+		rebuild => 0,
+	},
 	libdir => {
 		type => "string",
 		default => "",
 		example => "$ENV{HOME}/.ikiwiki/",
-		description => "extra library and plugin directory",
+		description => "extra library and plugin directory (searched after libdirs)",
 		advanced => 1,
 		safe => 0, # directory
 		rebuild => 0,
@@ -527,6 +551,32 @@ sub getsetup () {
 		safe => 0, # hooks into perl module internals
 		rebuild => 0,
 	},
+	useragent => {
+		type => "string",
+		default => "ikiwiki/$version",
+		example => "Wget/1.13.4 (linux-gnu)",
+		description => "set custom user agent string for outbound HTTP requests e.g. when fetching aggregated RSS feeds",
+		safe => 0,
+		rebuild => 0,
+	},
+	responsive_layout => {
+		type => "boolean",
+		default => 1,
+		description => "theme has a responsive layout? (mobile-optimized)",
+		safe => 1,
+		rebuild => 1,
+	},
+}
+
+sub getlibdirs () {
+	my @libdirs;
+	if ($config{libdirs}) {
+		@libdirs = @{$config{libdirs}};
+	}
+	if (length $config{libdir}) {
+		push @libdirs, $config{libdir};
+	}
+	return @libdirs;
 }
 
 sub defaultconfig () {
@@ -599,12 +649,39 @@ sub checkconfig () {
 
 			$local_cgiurl = $cgiurl->path;
 
-			if ($cgiurl->scheme ne $baseurl->scheme or
-				$cgiurl->authority ne $baseurl->authority) {
+			if ($cgiurl->scheme eq 'https' &&
+				$baseurl->scheme eq 'http') {
+				# We assume that the same content is available
+				# over both http and https, because if it
+				# wasn't, accessing the static content
+				# from the CGI would be mixed-content,
+				# which would be a security flaw.
+
+				if ($cgiurl->authority ne $baseurl->authority) {
+					# use protocol-relative URL for
+					# static content
+					$local_url = "$config{url}/";
+					$local_url =~ s{^http://}{//};
+				}
+				# else use host-relative URL for static content
+
+				# either way, CGI needs to be absolute
+				$local_cgiurl = $config{cgiurl};
+			}
+			elsif ($cgiurl->scheme ne $baseurl->scheme) {
 				# too far apart, fall back to absolute URLs
 				$local_url = "$config{url}/";
 				$local_cgiurl = $config{cgiurl};
 			}
+			elsif ($cgiurl->authority ne $baseurl->authority) {
+				# slightly too far apart, fall back to
+				# protocol-relative URLs
+				$local_url = "$config{url}/";
+				$local_url =~ s{^https?://}{//};
+				$local_cgiurl = $config{cgiurl};
+				$local_cgiurl =~ s{^https?://}{//};
+			}
+			# else keep host-relative URLs
 		}
 
 		$local_url =~ s{//$}{/};
@@ -644,14 +721,14 @@ sub checkconfig () {
 sub listplugins () {
 	my %ret;
 
-	foreach my $dir (@INC, $config{libdir}) {
+	foreach my $dir (@INC, getlibdirs()) {
 		next unless defined $dir && length $dir;
 		foreach my $file (glob("$dir/IkiWiki/Plugin/*.pm")) {
 			my ($plugin)=$file=~/.*\/(.*)\.pm$/;
 			$ret{$plugin}=1;
 		}
 	}
-	foreach my $dir ($config{libdir}, "$installdir/lib/ikiwiki") {
+	foreach my $dir (getlibdirs(), "$installdir/lib/ikiwiki") {
 		next unless defined $dir && length $dir;
 		foreach my $file (glob("$dir/plugins/*")) {
 			$ret{basename($file)}=1 if -x $file;
@@ -662,8 +739,8 @@ sub listplugins () {
 }
 
 sub loadplugins () {
-	if (defined $config{libdir} && length $config{libdir}) {
-		unshift @INC, possibly_foolish_untaint($config{libdir});
+	foreach my $dir (getlibdirs()) {
+		unshift @INC, possibly_foolish_untaint($dir);
 	}
 
 	foreach my $plugin (@{$config{default_plugins}}, @{$config{add_plugins}}) {
@@ -696,8 +773,8 @@ sub loadplugin ($;$) {
 
 	return if ! $force && grep { $_ eq $plugin} @{$config{disable_plugins}};
 
-	foreach my $dir (defined $config{libdir} ? possibly_foolish_untaint($config{libdir}) : undef,
-	                 "$installdir/lib/ikiwiki") {
+	foreach my $possiblytainteddir (getlibdirs(), "$installdir/lib/ikiwiki") {
+		my $dir = possibly_foolish_untaint($possiblytainteddir);
 		if (defined $dir && -x "$dir/plugins/$plugin") {
 			eval { require IkiWiki::Plugin::external };
 			if ($@) {
@@ -735,6 +812,7 @@ sub debug ($) {
 }
 
 my $log_open=0;
+my $log_failed=0;
 sub log_message ($$) {
 	my $type=shift;
 
@@ -745,9 +823,18 @@ sub log_message ($$) {
 			Sys::Syslog::openlog('ikiwiki', '', 'user');
 			$log_open=1;
 		}
-		return eval {
-			Sys::Syslog::syslog($type, "[$config{wikiname}] %s", join(" ", @_));
+		eval {
+			# keep a copy to avoid editing the original config repeatedly
+			my $wikiname = $config{wikiname};
+			utf8::encode($wikiname);
+			Sys::Syslog::syslog($type, "[$wikiname] %s", join(" ", @_));
 		};
+                if ($@) {
+                    print STDERR "failed to syslog: $@" unless $log_failed;
+                    $log_failed=1;
+                    print STDERR "@_\n";
+                }
+                return $@;
 	}
 	elsif (! $config{cgi}) {
 		return print "@_\n";
@@ -1490,7 +1577,7 @@ sub preprocess ($$$;$$) {
 					push @params, $val, '';
 				}
 			}
-			if ($preprocessing{$page}++ > 3) {
+			if ($preprocessing{$page}++ > 8) {
 				# Avoid loops of preprocessed pages preprocessing
 				# other pages that preprocess them, etc.
 				return "[[!$command <span class=\"error\">".
@@ -1747,8 +1834,11 @@ sub lockwiki () {
 	}
 	open($wikilock, '>', "$config{wikistatedir}/lockfile") ||
 		error ("cannot write to $config{wikistatedir}/lockfile: $!");
-	if (! flock($wikilock, 2)) { # LOCK_EX
-		error("failed to get lock");
+	if (! flock($wikilock, LOCK_EX | LOCK_NB)) {
+		debug("failed to get lock; waiting...");
+		if (! flock($wikilock, LOCK_EX)) {
+			error("failed to get lock");
+		}
 	}
 	return 1;
 }
@@ -1801,7 +1891,8 @@ sub loadindex () {
 			open ($in, "<", "$config{wikistatedir}/indexdb") || return;
 		}
 		else {
-			$config{gettime}=1; # first build
+			# gettime on first build
+			$config{gettime}=1 unless defined $config{gettime};
 			return;
 		}
 	}
@@ -2003,11 +2094,19 @@ sub template_depends ($$;@) {
 	if (defined $page && defined $tpage) {
 		add_depends($page, $tpage);
 	}
-	
+
 	my @opts=(
 		filter => sub {
 			my $text_ref = shift;
 			${$text_ref} = decode_utf8(${$text_ref});
+			run_hooks(readtemplate => sub {
+				${$text_ref} = shift->(
+					id => $name,
+					page => $tpage,
+					content => ${$text_ref},
+					untrusted => $untrusted,
+				);
+			});
 		},
 		loop_context_vars => 1,
 		die_on_bad_params => 0,
@@ -2301,6 +2400,7 @@ sub useragent () {
 	return LWP::UserAgent->new(
 		cookie_jar => $config{cookiejar},
 		env_proxy => 1,		# respect proxy env vars
+		agent => $config{useragent},
 	);
 }
 
@@ -2440,6 +2540,19 @@ sub pagespec_match ($$;@) {
 	return $sub->($page, @params);
 }
 
+# e.g. @pages = sort_pages("title", \@pages, reverse => "yes")
+#
+# Not exported yet, but could be in future if it is generally useful.
+# Note that this signature is not the same as IkiWiki::SortSpec::sort_pages,
+# which is "more internal".
+sub sort_pages ($$;@) {
+	my $sort = shift;
+	my $list = shift;
+	my %params = @_;
+	$sort = sortspec_translate($sort, $params{reverse});
+	return IkiWiki::SortSpec::sort_pages($sort, @$list);
+}
+
 sub pagespec_match_list ($$;@) {
 	my $page=shift;
 	my $pagespec=shift;
@@ -2545,20 +2658,47 @@ our @ISA = 'IkiWiki::SuccessReason';
 
 package IkiWiki::SuccessReason;
 
+# A blessed array-ref:
+#
+# [0]: human-readable reason for success (or, in FailReason subclass, failure)
+# [1]{""}:
+#      - if absent or false, the influences of this evaluation are "static",
+#        see the influences_static method
+#      - if true, they are dynamic (not static)
+# [1]{any other key}:
+#      the dependency types of influences, as returned by the influences method
+
 use overload (
+	# in string context, it's the human-readable reason
 	'""'	=> sub { $_[0][0] },
+	# in boolean context, SuccessReason is 1 and FailReason is 0
 	'0+'	=> sub { 1 },
+	# negating a result gives the opposite result with the same influences
 	'!'	=> sub { bless $_[0], 'IkiWiki::FailReason'},
+	# A & B = (A ? B : A) with the influences of both
 	'&'	=> sub { $_[1]->merge_influences($_[0], 1); $_[1] },
+	# A | B = (A ? A : B) with the influences of both
 	'|'	=> sub { $_[0]->merge_influences($_[1]); $_[0] },
 	fallback => 1,
 );
+
+# SuccessReason->new("human-readable reason", page => deptype, ...)
 
 sub new {
 	my $class = shift;
 	my $value = shift;
 	return bless [$value, {@_}], $class;
 }
+
+# influences(): return a reference to a copy of the hash
+# { page => dependency type } describing the pages that indirectly influenced
+# this result, but would not cause a dependency through ikiwiki's core
+# dependency logic.
+#
+# See [[todo/dependency_types]] for extensive discussion of what this means.
+#
+# influences(page => deptype, ...): remove all influences, replace them
+# with the arguments, and return a reference to a copy of the new influences.
 
 sub influences {
 	my $this=shift;
@@ -2568,15 +2708,46 @@ sub influences {
 	return \%i;
 }
 
+# True if this result has the same influences whichever page it matches,
+# For instance, whether bar matches backlink(foo) is influenced only by
+# the set of links in foo, so its only influence is { foo => DEPEND_LINKS },
+# which does not mention bar anywhere.
+#
+# False if this result would have different influences when matching
+# different pages. For instance, when testing whether link(foo) matches bar,
+# { bar => DEPEND_LINKS } is an influence on that result, because changing
+# bar's links could change the outcome; so its influences are not the same
+# as when testing whether link(foo) matches baz.
+#
+# Static influences are one of the things that make pagespec_match_list
+# more efficient than repeated calls to pagespec_match.
+
 sub influences_static {
 	return ! $_[0][1]->{""};
 }
+
+# Change the influences of $this to be the influences of "$this & $other"
+# or "$this | $other".
+#
+# If both $this and $other are either successful or have influences,
+# or this is an "or" operation, the result has all the influences from
+# either of the arguments. It has dynamic influences if either argument
+# has dynamic influences.
+#
+# If this is an "and" operation, and at least one argument is a
+# FailReason with no influences, the result has no influences, and they
+# are not dynamic. For instance, link(foo) matching bar is influenced
+# by bar, but enabled(ddate) has no influences. Suppose ddate is disabled;
+# then (link(foo) and enabled(ddate)) not matching bar is not influenced by
+# bar, because it would be false however often you edit bar.
 
 sub merge_influences {
 	my $this=shift;
 	my $other=shift;
 	my $anded=shift;
 
+	# This "if" is odd because it needs to avoid negating $this
+	# or $other, which would alter the objects in-place. Be careful.
 	if (! $anded || (($this || %{$this->[1]}) &&
 	                 ($other || %{$other->[1]}))) {
 		foreach my $influence (keys %{$other->[1]}) {
@@ -2588,6 +2759,8 @@ sub merge_influences {
 		$this->[1]={};
 	}
 }
+
+# Change $this so it is not considered to be influenced by $torm.
 
 sub remove_influence {
 	my $this=shift;
