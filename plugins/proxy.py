@@ -158,15 +158,24 @@ class _IkiWikiExtPluginXMLRPCHandler(object):
     def send_rpc(self, cmd, in_fd, out_fd, *args, **kwargs):
         xml = _xmlrpc_client.dumps(sum(kwargs.items(), args), cmd)
         self._debug_fn(
-            "calling ikiwiki procedure `{0}': [{1}]".format(cmd, xml))
-        _IkiWikiExtPluginXMLRPCHandler._write(out_fd, xml)
+            "calling ikiwiki procedure `{0}': [{1}]".format(cmd, repr(xml)))
+        # ensure that encoded is a str (bytestring in Python 2, Unicode in 3)
+        if str is bytes and not isinstance(xml, str):
+            encoded = xml.encode('utf8')
+        else:
+            encoded = xml
+        _IkiWikiExtPluginXMLRPCHandler._write(out_fd, encoded)
 
         self._debug_fn('reading response from ikiwiki...')
 
-        xml = _IkiWikiExtPluginXMLRPCHandler._read(in_fd)
+        response = _IkiWikiExtPluginXMLRPCHandler._read(in_fd)
+        if str is bytes and not isinstance(response, str):
+            xml = response.encode('utf8')
+        else:
+            xml = response
         self._debug_fn(
             'read response to procedure {0} from ikiwiki: [{1}]'.format(
-                cmd, xml))
+                cmd, repr(xml)))
         if xml is None:
             # ikiwiki is going down
             self._debug_fn('ikiwiki is going down, and so are we...')
@@ -250,7 +259,7 @@ class IkiWikiProcedureProxy(object):
 #            kwargs = dict([args[i:i+2] for i in xrange(1, len(args), 2)])
             ret = function(self, *args)
             self._debug_fn(
-                    "{0} hook `{1}' returned: [{2}]".format(type, name, ret))
+                    "{0} hook `{1}' returned: [{2}]".format(type, name, repr(ret)))
             if ret == IkiWikiProcedureProxy._IKIWIKI_NIL_SENTINEL:
                 raise InvalidReturnValue(
                     'hook functions are not allowed to return {0}'.format(

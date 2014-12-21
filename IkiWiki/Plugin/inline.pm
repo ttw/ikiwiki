@@ -119,7 +119,7 @@ sub sessioncgi ($$) {
 	my $session=shift;
 
 	if ($q->param('do') eq 'blog') {
-		my $page=titlepage(decode_utf8($q->param('title')));
+		my $page=titlepage(decode_utf8(scalar $q->param('title')));
 		$page=~s/(\/)/"__".ord($1)."__"/eg; # don't create subdirs
 		# if the page already exists, munge it to be unique
 		my $from=$q->param('from');
@@ -185,6 +185,13 @@ sub preprocess_inline (@) {
 	}
 	if (! exists $params{feedshow} && exists $params{show}) {
 		$params{feedshow}=$params{show};
+	}
+	my $title;
+	if (exists $params{title}) {
+		$title = $params{title};
+	}
+	else {
+		$title = $params{page} ne "index" ? pagetitle($params{page}) : $config{wikiname};
 	}
 	my $desc;
 	if (exists $params{description}) {
@@ -322,8 +329,12 @@ sub preprocess_inline (@) {
 
 	my $ret="";
 
-	if (length $config{cgiurl} && ! $params{preview} && (exists $params{rootpage} ||
-	    (exists $params{postform} && yesno($params{postform}))) &&
+	my $postform = (exists $params{rootpage});
+	if (exists $params{postform}) {
+		$postform = yesno($params{postform});
+	}
+
+	if (length $config{cgiurl} && ! $params{preview} && $postform &&
 	    IkiWiki->can("cgi_editpage")) {
 		# Add a blog post form, with feed buttons.
 		my $formtemplate=template_depends("blogpost.tmpl", $params{page}, blind_cache => 1);
@@ -384,7 +395,9 @@ sub preprocess_inline (@) {
 					blind_cache => 1);
 			};
 			if ($@) {
-				error sprintf(gettext("failed to process template %s"), $params{template}.".tmpl").": $@";
+				# gettext can clobber $@
+				my $error = $@;
+				error sprintf(gettext("failed to process template %s"), $params{template}.".tmpl").": $error";
 			}
 		}
 		my $needcontent=$raw || (!($archive && $quick) && $template->query(name => 'content'));
@@ -465,7 +478,7 @@ sub preprocess_inline (@) {
 			if (! $params{preview}) {
 				writefile($rssp, $config{destdir},
 					genfeed("rss",
-						$config{url}."/".$rssp, $desc, $params{guid}, $params{page}, @feedlist));
+						$config{url}."/".$rssp, $title, $desc, $params{guid}, $params{page}, @feedlist));
 				$toping{$params{destpage}}=1 unless $config{rebuild};
 				$feedlinks{$params{destpage}}.=qq{<link rel="alternate" type="application/rss+xml" title="$rssdesc" href="$rssurl" />};
 			}
@@ -475,7 +488,7 @@ sub preprocess_inline (@) {
 			will_render($params{destpage}, $atomp);
 			if (! $params{preview}) {
 				writefile($atomp, $config{destdir},
-					genfeed("atom", $config{url}."/".$atomp, $desc, $params{guid}, $params{page}, @feedlist));
+					genfeed("atom", $config{url}."/".$atomp, $title, $desc, $params{guid}, $params{page}, @feedlist));
 				$toping{$params{destpage}}=1 unless $config{rebuild};
 				$feedlinks{$params{destpage}}.=qq{<link rel="alternate" type="application/atom+xml" title="$atomdesc" href="$atomurl" />};
 			}
@@ -634,6 +647,7 @@ sub genenclosure {
 sub genfeed ($$$$$@) {
 	my $feedtype=shift;
 	my $feedurl=shift;
+        my $feedtitle=shift;
 	my $feeddesc=shift;
 	my $guid=shift;
 	my $page=shift;
@@ -699,7 +713,7 @@ sub genfeed ($$$$$@) {
 
 	my $template=template_depends($feedtype."page.tmpl", $page, blind_cache => 1);
 	$template->param(
-		title => $page ne "index" ? pagetitle($page) : $config{wikiname},
+		title => $feedtitle,
 		wikiname => $config{wikiname},
 		pageurl => $url,
 		content => $content,

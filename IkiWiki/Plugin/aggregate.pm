@@ -553,7 +553,9 @@ sub aggregate (@) {
 			};
 		}
 		if ($@) {
-			$feed->{message}=gettext("feed crashed XML::Feed!")." ($@)";
+			# gettext can clobber $@
+			my $error = $@;
+			$feed->{message}=gettext("feed crashed XML::Feed!")." ($error)";
 			$feed->{error}=1;
 			debug($feed->{message});
 			next;
@@ -628,12 +630,12 @@ sub add_page (@) {
 		       -e "$config{srcdir}/".htmlfn($page.$c)) {
 			$c++
 		}
+		$page=$page.$c;
 
 		$guid->{page}=$page;
 		eval { write_page($feed, $guid, $mtime, \%params) };
 		if ($@) {
 			# assume failure was due to a too long filename
-			# (or o
 			$c="";
 			$page=$feed->{dir}."/item";
 			while (exists $IkiWiki::pagecase{lc $page.$c} ||
@@ -641,6 +643,7 @@ sub add_page (@) {
 			      -e "$config{srcdir}/".htmlfn($page.$c)) {
 				$c++
 			}
+			$page=$page.$c;
 
 			$guid->{page}=$page;
 			write_page($feed, $guid, $mtime, \%params);
@@ -674,7 +677,9 @@ sub write_page ($$$$$) {
 		$template=template($feed->{template}, blind_cache => 1);
 	};
 	if ($@) {
-		print STDERR gettext("failed to process template:")." $@";
+		# gettext can clobber $@
+		my $error = $@;
+		print STDERR gettext("failed to process template:")." $error";
 		return;
 	}
 	$template->param(title => $params{title})

@@ -438,6 +438,16 @@ sub editcomment ($$) {
 			$page));
 	}
 
+	# There's no UI to get here, but someone might construct the URL,
+	# leading to a comment that exists in the repository but isn't
+	# shown
+	if (!pagespec_match($page, $config{comments_pagespec},
+		location => $page)) {
+		error(sprintf(gettext(
+			"comments on page '%s' are not allowed"),
+			$page));
+	}
+
 	if (pagespec_match($page, $config{comments_closed_pagespec},
 		location => $page)) {
 		error(sprintf(gettext(
@@ -458,12 +468,15 @@ sub editcomment ($$) {
 		$username =~ s/"/&quot;/g;
 		$content .= " username=\"$username\"\n";
 	}
+
 	if (defined $session->param('nickname')) {
 		my $nickname = $session->param('nickname');
 		$nickname =~ s/"/&quot;/g;
 		$content .= " nickname=\"$nickname\"\n";
 	}
-	elsif (defined $session->remote_addr()) {
+
+	if (!(defined $session->param('name') || defined $session->param('nickname')) &&
+		defined $session->remote_addr()) {
 		$content .= " ip=\"".$session->remote_addr()."\"\n";
 	}
 
@@ -494,8 +507,7 @@ sub editcomment ($$) {
 		$subject = "comment ".(num_comments($page, $config{srcdir}) + 1);
 	}
 	$content .= " subject=\"$subject\"\n";
-
-	$content .= " date=\"" . strftime_utf8('%Y-%m-%dT%H:%M:%SZ', gmtime) . "\"\n";
+	$content .= " " . commentdate() . "\n";
 
 	my $editcontent = $form->field('editcontent');
 	$editcontent="" if ! defined $editcontent;
@@ -621,6 +633,10 @@ sub editcomment ($$) {
 	}
 
 	exit;
+}
+
+sub commentdate () {
+	"date=\"" . strftime_utf8('%Y-%m-%dT%H:%M:%SZ', gmtime) . "\"";
 }
 
 sub getavatar ($) {
@@ -999,7 +1015,7 @@ sub num_comments ($$) {
 	return int @comments;
 }
 
-sub unique_comment_location ($$$$) {
+sub unique_comment_location ($$$;$) {
 	my $page=shift;
 	eval q{use Digest::MD5 'md5_hex'};
 	error($@) if $@;

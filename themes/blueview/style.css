@@ -279,3 +279,30 @@ body {
 
 }
 
+/* lose the border on mobile */
+@media (max-width: 600px) {
+	body {
+		padding: 0;
+	}
+	.page {
+		border: none;
+		margin: 0;
+	}
+	#pagebody {
+		margin: auto;
+		border: none;
+		padding: 0.5em;
+	}
+	#footer {
+		padding: 0.5em;
+	}
+}
+
+/* cancel the minimum width if it would mean scrollbars */
+@media (max-width: 850px) {
+	.page {
+		width: auto;
+		min-width: 0;
+		padding: 0;
+	}
+}

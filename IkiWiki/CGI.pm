@@ -58,12 +58,15 @@ sub cgitemplate ($$$;@) {
 	
 	my $template=template("page.tmpl");
 
-	my $topurl = defined $cgi ? $cgi->url : $config{url};
+	my $topurl = $config{url};
+	if (defined $cgi && ! $config{w3mmode} && ! $config{reverse_proxy}) {
+		$topurl = $cgi->url;
+	}
 
 	my $page="";
 	if (exists $params{page}) {
 		$page=delete $params{page};
-		$params{forcebaseurl}=urlabs(urlto($page), $topurl);
+		$params{forcebaseurl}=urlto($page);
 	}
 	run_hooks(pagetemplate => sub {
 		shift->(
@@ -74,12 +77,14 @@ sub cgitemplate ($$$;@) {
 	});
 	templateactions($template, "");
 
+	my $baseurl = baseurl();
+
 	$template->param(
 		dynamic => 1,
 		title => $title,
 		wikiname => $config{wikiname},
 		content => $content,
-		baseurl => urlabs(baseurl(), $topurl),
+		baseurl => $baseurl,
 		html5 => $config{html5},
 		%params,
 	);
@@ -90,7 +95,13 @@ sub cgitemplate ($$$;@) {
 sub redirect ($$) {
 	my $q=shift;
 	eval q{use URI};
-	my $url=URI->new(urlabs(shift, $q->url));
+
+	my $topurl;
+	if (defined $q && ! $config{w3mmode} && ! $config{reverse_proxy}) {
+		$topurl = $q->url;
+	}
+
+	my $url=URI->new(urlabs(shift, $topurl));
 	if (! $config{w3mmode}) {
 		print $q->redirect($url);
 	}
@@ -105,16 +116,29 @@ sub decode_cgi_utf8 ($) {
 	if ($] < 5.01) {
 		my $cgi = shift;
 		foreach my $f ($cgi->param) {
-			$cgi->param($f, map { decode_utf8 $_ } $cgi->param($f));
+			$cgi->param($f, map { decode_utf8 $_ }
+				@{$cgi->param_fetch($f)});
 		}
 	}
+}
+
+sub safe_decode_utf8 ($) {
+    my $octets = shift;
+    # call decode_utf8 on >= 5.20 only if it's not already decoded,
+    # otherwise it balks, on < 5.20, always call it
+    if ($] < 5.02 || !Encode::is_utf8($octets)) {
+        return decode_utf8($octets);
+    }
+    else {
+        return $octets;
+    }
 }
 
 sub decode_form_utf8 ($) {
 	if ($] >= 5.01) {
 		my $form = shift;
 		foreach my $f ($form->field) {
-			my @value=map { decode_utf8($_) } $form->field($f);
+			my @value=map { safe_decode_utf8($_) } $form->field($f);
 			$form->field(name  => $f,
 			             value => \@value,
 		                     force => 1,
@@ -351,7 +375,8 @@ sub cgi_getsession ($) {
 			{ FileName => "$config{wikistatedir}/sessions.db" })
 	};
 	if (! $session || $@) {
-		error($@." ".CGI::Session->errstr());
+		my $error = $@;
+		error($error." ".CGI::Session->errstr());
 	}
 	
 	umask($oldmask);

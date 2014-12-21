@@ -36,7 +36,6 @@ think about merging them. This is recommended. :-)
 * [[intrigeri]] `git://gaffer.ptitcanardnoir.org/ikiwiki.git`
 * [[gmcmanus]] `git://github.com/gmcmanus/ikiwiki.git`
 * [[jelmer]] `git://git.samba.org/jelmer/ikiwiki.git`
-* [[hendry]] `git://webconverger.org/git/ikiwiki`
 * [[jon]] `git://github.com/jmtd/ikiwiki.git`
 * [[ikipostal|DavidBremner]] `git://pivot.cs.unb.ca/git/ikipostal.git`
 * [[ikimailbox|DavidBremner]] `git://pivot.cs.unb.ca/git/ikimailbox.git`
@@ -74,12 +73,15 @@ think about merging them. This is recommended. :-)
 * [[pelle]] `git://github.com/hemmop/ikiwiki.git`
 * [[chrismgray]] `git://github.com/chrismgray/ikiwiki.git`
 * [[ttw]] `git://github.com/ttw/ikiwiki.git`
-* [[anarcat]] `git://src.anarcat.ath.cx/ikiwiki`
+* [[anarcat]] `git://src.anarc.at/ikiwiki`
 * anderbubble `git://civilfritz.net/ikiwiki.git`
 * frioux `git://github.com/frioux/ikiwiki`
 * llipavsky `git://github.com/llipavsky/ikiwiki`
-* [[cbaines]] `git://github.com/cbaines/ikiwiki.git`
+* [[cbaines]] `git://git.cbaines.net/ikiwiki`
 * [[mhameed]] `git://github.com/mhameed/ikiwiki.git`
+* [[spalax]] `git://github.com/paternal/ikiwiki.git` ([[browse|https://github.com/paternal/ikiwiki]])
+* [[jcflack]] `git://github.com/jcflack/ikiwiki.git`
+* [[users/mjd]] `https://github.com/mjdominus/ikiwiki.git` ([[browse|https://github.com/mjdominus/ikiwiki]])
 
 ## branches
 

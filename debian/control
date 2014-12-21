@@ -5,12 +5,15 @@ Build-Depends: perl, debhelper (>= 9)
 Build-Depends-Indep: dpkg-dev (>= 1.9.0), libxml-simple-perl,
   libtext-markdown-discount-perl,
   libtimedate-perl, libhtml-template-perl,
-  libhtml-scrubber-perl, wdg-html-validator,
+  libhtml-scrubber-perl,
   libhtml-parser-perl, liburi-perl (>= 1.36), perlmagick, po4a (>= 0.34),
-  libfile-chdir-perl, libyaml-libyaml-perl, python-support
-Maintainer: Joey Hess <joeyh@debian.org>
+  libfile-chdir-perl, libyaml-libyaml-perl, librpc-xml-perl,
+  libcgi-pm-perl, libcgi-session-perl, ghostscript,
+  libmagickcore-6.q16-2-extra | libmagickcore-extra,
+  libcgi-formbuilder-perl
+Maintainer: Simon McVittie <smcv@debian.org>
 Uploaders: Josh Triplett <josh@freedesktop.org>
-Standards-Version: 3.9.4
+Standards-Version: 3.9.5
 Homepage: http://ikiwiki.info/
 Vcs-Git: git://git.ikiwiki.info/
 
@@ -24,7 +27,7 @@ Recommends: gcc | c-compiler,
   libc6-dev | libc-dev,
   git (>= 1:1.7) | git-core (>= 1:1.5.0) | subversion | tla | bzr (>= 0.91) | mercurial | monotone (>= 0.38) | darcs,
   libxml-simple-perl, libnet-openid-consumer-perl, libcrypt-ssleay-perl,
-  liblwpx-paranoidagent-perl, libtimedate-perl,
+  liblwpx-paranoidagent-perl, libtimedate-perl, libcgi-pm-perl,
   libcgi-formbuilder-perl (>= 3.05), libcgi-session-perl (>= 4.14-1),
   libmail-sendmail-perl, libauthen-passphrase-perl, libterm-readline-gnu-perl,
   libgravatar-url-perl, librpc-xml-perl,
@@ -38,7 +41,8 @@ Suggests: viewvc | gitweb | viewcvs, libsearch-xapian-perl,
   libsparkline-php, texlive, dvipng, libtext-wikicreole-perl,
   libsort-naturally-perl, libtext-textile-perl, libhighlight-perl,
   po4a (>= 0.35-1), gettext, libnet-inet6glue-perl,
-  libtext-multimarkdown-perl, libxml-writer-perl
+  libtext-multimarkdown-perl, libxml-writer-perl,
+  ghostscript, libmagickcore-extra
 Conflicts: ikiwiki-plugin-table
 Replaces: ikiwiki-plugin-table
 Provides: ikiwiki-plugin-table

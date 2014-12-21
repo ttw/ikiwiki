@@ -1,7 +1,15 @@
 The `comment` directive is supplied by the
-[[!iki plugins/comments desc=comments]] plugin, and is used to add a comment
-to a page. Typically, the directive is the only thing on a comment page,
-and is filled out by the comment plugin when a user posts a comment.
+[[!iki plugins/comments desc=comments]] plugin. There should
+be one comment directive in each source file with extension
+`._comment` or `._comment_pending`, and the directive should not
+appear anywhere else. Comments are normally created via the web,
+in which case ikiwiki automatically creates a suitable
+`._comment` file.
+
+Wiki administrators can also commit comment files to the version
+control system directly: they should be named starting with
+the *comments\_pagename* config option (usually `comment_`)
+and ending with `._comment`, for instance `comment_42._comment`.
 
 Example:
 
@@ -17,7 +25,8 @@ Example:
 ## usage
 
 The only required parameter is `content`, the others just add or override
-metadata of the comment.
+metadata for the comment. Many parameters are shortcuts for [[meta]]
+directives.
 
 * `content` - Text to display for the comment.
   Note that [[directives|ikiwiki/directive]]
