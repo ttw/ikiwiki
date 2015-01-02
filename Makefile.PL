@@ -194,7 +194,7 @@ coverage:
 WriteMakefile(
 	NAME		=> 'IkiWiki',
 	PREFIX		=> "/usr/local",
-	PM_FILTER	=> './pm_filter $(DESTDIR)$(PREFIX) $(VER) $(PROBABLE_INST_LIB)',
+	PM_FILTER	=> './pm_filter $(PREFIX) $(VER) $(PROBABLE_INST_LIB)',
 	MAN1PODS	=> {},
 	PREREQ_PM	=> {
 		'XML::Simple'		=> "0",
